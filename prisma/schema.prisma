@@ -1,0 +1,64 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Gost {
+  id          Int          @id @default(autoincrement())
+  email       String       @unique
+  ime         String?
+  prezime     String?
+  rezervacije Rezervacija[]
+}
+
+model TipSobe {
+  id        Int    @id @default(autoincrement())
+  kapacitet Int
+  cijena    Float
+  ime       String?
+  soba      Soba[]
+}
+
+model Soba {
+  id          Int      @id @default(autoincrement())
+  sobaBroj    Int
+  tipSobeId   Int
+  tipSobe     TipSobe @relation(fields: [tipSobeId], references: [id])
+  status      String
+  slike       String[]
+  rezervacije Rezervacija[]
+}
+
+model Rezervacija {
+  id          Int       @id @default(autoincrement())
+  soba        Soba  @relation(fields: [sobaId], references: [id])
+  sobaId      Int
+  gost        Gost?  @relation(fields: [gostId], references: [id])
+  gostId      Int?
+  pocetak     DateTime
+  kraj        DateTime
+  brojNocenja Int
+  ukupno      Float
+  createdAt   DateTime  @default(now())
+}
+
+
+
+model Korisnik {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  role          Role     @default(USER)
+  createdAt DateTime @default(now())
+
+}
+enum Role {
+  ADMIN
+  USER
+}
+
