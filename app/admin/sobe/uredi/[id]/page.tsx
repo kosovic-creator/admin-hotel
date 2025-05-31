@@ -16,6 +16,7 @@ export default function AzurirajSobu() {
   const [slike, setSlike] = useState<string[]>([]);
   const [error, setError] = useState<Error | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [opis, setOpis] = useState<string>('');
 
   useEffect(() => {
     const id = params.id;
@@ -29,6 +30,7 @@ export default function AzurirajSobu() {
         setSobaBroj(data.sobaBroj);
         setStatus(data.status);
         setSlike(data.slike);
+        setOpis(data.opis);
       } catch (error) {
         setError(error as Error);
       }
@@ -37,9 +39,12 @@ export default function AzurirajSobu() {
   }, [params.id]);
 
   async function azurirajSobu() {
+    console.log('Pozvana funkcija azurirajSobu');
     setErrors({});
-    const body = { sobaBroj, status, slike };
+    const body = { sobaBroj, status, slike, opis };
+    console.log('Body za validaciju:', body);
     const parsed = sobaSchema.safeParse(body);
+    console.log('Rezultat validacije:', parsed);
     if (!parsed.success) {
       const fieldErrors: Record<string, string> = {};
       parsed.error.errors.forEach((err) => {
@@ -57,6 +62,7 @@ export default function AzurirajSobu() {
           'Content-Type': 'application/json',
         },
       });
+      console.log('Response:', response);
       if (!response.ok) {
         throw new Error('Nema odgovora sa servera');
       }
@@ -71,7 +77,6 @@ export default function AzurirajSobu() {
       console.error('Greska pri azuriranju sobe', error);
     }
   }
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md flex flex-col items-center">
@@ -99,6 +104,15 @@ export default function AzurirajSobu() {
             className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           {errors.sobaBroj && <p className="text-red-500 text-sm">{errors.sobaBroj}</p>}
+
+          <input
+            type="text"
+            value={opis}
+            onChange={(e) => setOpis(e.target.value)}
+            placeholder="Unesite opis"
+            className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          {errors.opis && <p className="text-red-500 text-sm">{errors.opis}</p>}
 
           <UploadButton
             endpoint="imageUploader"
@@ -135,7 +149,7 @@ export default function AzurirajSobu() {
               Odloži
             </button>
             <button
-              type="submit"
+              type="submit" // <-- OVO MORA BITI submit
               className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition"
             >
               Ažuriraj Sobu
