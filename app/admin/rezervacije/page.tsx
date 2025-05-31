@@ -83,7 +83,7 @@ export default function Rezervacije() {
     currentPage * PAGE_SIZE
   );
   return (
-    <div className="w-full p-4"> 
+    <div className="w-full p-4">
       <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Rezervacije</h1>
       <div className="overflow-x-auto rounded-lg shadow-lg bg-white w-full">
         <table className="min-w-full w-full border border-gray-200 rounded-lg">
