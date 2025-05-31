@@ -3,6 +3,7 @@ export type Sobe = {
     sobaBroj: number;
     slike: string[];
     status: string;
+    opis: string;
     tipSobe: {
         id: number;
         ime: string;

@@ -12,6 +12,7 @@ export default function DetaljiTipSobe() {
   const router = useRouter();
   const [toast, setToast] = useState<string | null>(null);
   const [ime, setIme] = useState<string>('');
+  const [tipSobe, setTipSobe] = useState<string>();
   const [cijena, setCijena] = useState<number>();
   const [kapacitet, setKapacitet] = useState<number>();
   const [errors, setErrors] = useState<Record<string, string>>({});

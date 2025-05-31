@@ -32,6 +32,7 @@ model Soba {
   status      String
   slike       String[]
   rezervacije Rezervacija[]
+  opis        String?
 }
 
 model Rezervacija {
