@@ -83,10 +83,10 @@ export default function Rezervacije() {
     currentPage * PAGE_SIZE
   );
   return (
-    <div className="w-full p-4"> {/* Uklonjen max-w-6xl i mx-auto, dodato w-full */}
+    <div className="w-full p-4"> 
       <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Rezervacije</h1>
-      <div className="overflow-x-auto rounded-lg shadow-lg bg-white w-full"> {/* Dodato w-full */}
-        <table className="min-w-full w-full border border-gray-200 rounded-lg"> {/* Dodato w-full */}
+      <div className="overflow-x-auto rounded-lg shadow-lg bg-white w-full">
+        <table className="min-w-full w-full border border-gray-200 rounded-lg">
           <thead className="bg-gray-100">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">ID</th>
