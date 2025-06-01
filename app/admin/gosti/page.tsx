@@ -69,7 +69,7 @@ export default function GostiLista() {
                                 <td className="py-2 px-4 border-b">{item.email}</td>
                                 <td className="py-2 px-4 border-b flex gap-2">
                                     <button
-                                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-lg font-medium transition"
+                                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-lg font-medium transition cursor-pointer"
                                         onClick={() => {
                                             router.push(`/admin/gosti/${item.id}`);
                                         }}
@@ -82,7 +82,6 @@ export default function GostiLista() {
                     </tbody>
                 </table>
             </div>
-            {/* Pagination controls */}
             <div className="flex flex-wrap justify-center items-center gap-2 mt-8">
                 <button
                     className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 font-semibold"

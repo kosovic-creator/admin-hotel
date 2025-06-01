@@ -68,7 +68,7 @@ export default function AzurirajGosta() {
       setPrezime('');
       setEmail('');
       setToast('Gost je uspešno izmjenjen!');
-      setTimeout(() => router.push('/admin/gosti'), 1500);
+      setTimeout(() => router.push('/admin/gosti'), 2000);
     } catch (error) {
       console.error('Greska pri azuriranju gosta', error);
     }

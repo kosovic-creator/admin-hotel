@@ -88,7 +88,8 @@ function DodajRezrvaciju() {
       setIme('');
       setEmail('');
       setToast('Uspješno dodata nova rezrvacija.');
-      router.push('/admin/rezervacije');
+      setTimeout(() => router.push('/admin/rezervacije'), 2000);
+
     } catch (error) {
       console.error('Greška u dodavanju nove rezervacije:', error);
       setToast('Greška u dodavanju nove rezervacije.');

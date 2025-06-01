@@ -11,17 +11,16 @@ export default function DetaljiTipSobe() {
   const [toast, setToast] = useState<string | null>(null);
   const [ime, setIme] = useState<string>('');
   const [tipSobe, setTipSobe] = useState<string>();
-  const [cijena, setCijena] = useState<number>();
-  const [kapacitet, setKapacitet] = useState<number>();
+  const [cijena, setCijena] = useState<string>('');
+  const [kapacitet, setKapacitet] = useState<string>('');
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   async function noviTipSobe() {
     setErrors({});
     const body = {
       ime,
-      kapacitet,
-      cijena,
-
+      kapacitet: Number(kapacitet),
+      cijena: Number(cijena),
     };
     const parsed = tipoviSobaSchema .safeParse(body);
     if (!parsed.success) {
@@ -44,12 +43,11 @@ export default function DetaljiTipSobe() {
         throw new Error('Greška kod servera');
       }
       setIme('');
-      setCijena(undefined);
-      setKapacitet(undefined);
-
-      router.push('/admin/sobe/tip_sobe');
+      setCijena('');
+      setKapacitet('');
+      setToast('Uspješno ste dodali novi tip sobe.');
+      setTimeout(() => (router.push('/admin/sobe/tip_sobe'),2000));
     } catch (error) {
-      setToast('Greška u dodavanju nove tipa sobe.');
       console.error('Greška u dodavanju novog tipa sobe:', error);
     }
   }
@@ -65,19 +63,19 @@ export default function DetaljiTipSobe() {
             placeholder="Tip Sobe"
             className="w-full border border-gray-300 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition text-lg"
           />
-          {errors.tip && <p className="text-red-500 text-sm">{errors.tip}</p>}
+          {errors.ime && <p className="text-red-500 text-sm">{errors.ime}</p>}
           <input
             type="number"
             value={kapacitet}
-            onChange={(e) => setKapacitet(Number(e.target.value))}
-            placeholder="Ime"
+            onChange={(e) => setKapacitet(e.target.value)}
+            placeholder="Kapacitet"
             className="w-full border border-gray-300 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition text-lg"
           />
           {errors.kapacitet && <p className="text-red-500 text-sm">{errors.kapacitet}</p>}
           <input
             type="number"
             value={cijena}
-            onChange={(e) => setCijena(Number(e.target.value))}
+            onChange={(e) => setCijena(e.target.value)}
             placeholder="Cijena"
             className="w-full border border-gray-300 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition text-lg"
           />

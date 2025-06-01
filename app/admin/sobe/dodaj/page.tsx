@@ -54,9 +54,9 @@ export default function DodajSobu() {
       setOpis('');
       setStatusAktivna(true);
       setSlike([]);
-      router.push('/admin/sobe');
+      setToast('Uspješno ste dodali novu sobu.');
+      setTimeout(() => router.push('/admin/sobe'), 2000);
     } catch (error) {
-      setToast('Greška u dodavanju nove sobe.');
       console.error('Greška u dodavanju nove sobe:', error);
     }
   }

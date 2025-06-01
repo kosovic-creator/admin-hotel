@@ -12,8 +12,8 @@ export default function AzurirajTipSobu() {
   const router = useRouter();
   const params = useParams<{ id: string }>();
   const [ime, setIme] = useState<string>('');
-  const [cijena, setCijena] = useState<number>();
-  const [kapacitet, setKapacitet] = useState<number>();
+  const [cijena, setCijena] = useState<string>();
+  const [kapacitet, setKapacitet] = useState<string>();
   const [error, setError] = useState<Error | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [tipSoba, setTipSoba] = useState<tipSobe | null>(null);
@@ -70,12 +70,11 @@ export default function AzurirajTipSobu() {
       if (!response.ok) {
         throw new Error('Nema odgovora sa servera');
       }
-      const data = await response.json();
-      setToast('Tip sobe uspješno ažuriran!');
       setIme('');
-      setKapacitet(0);
-      setCijena(0);
-      router.push('/admin/soba/tip_sobe');
+      setKapacitet('');
+      setCijena('');
+      setToast('Tip sobe uspješno ažuriran!');
+      setTimeout(() => {router.push('/admin/sobe/tip_sobe')}, 2000);
     } catch (error) {
       setToast('Greška pri ažuriranju soba.');
       console.error('Greska pri azuriranju soba', error);
@@ -84,7 +83,7 @@ export default function AzurirajTipSobu() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <p className="text-2xl text-center text-gray-800">Ažuriranje Sobe</p>
+        <p className="text-2xl font-extrabold text-center text-gray-800 mb-4">Ažuriranje Sobe</p>
         <form
           className="flex flex-col gap-4"
           onSubmit={(e) => {
@@ -93,17 +92,9 @@ export default function AzurirajTipSobu() {
           }}
         >
           <input
-            type="text"
-            value={ime}
-            onChange={(e) => setIme(e.target.value)}
-            placeholder="Unesite ime sobe"
-            className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-          {errors.naziv && <p className="text-red-500 text-sm">{errors.naziv}</p>}
-          <input
             type="number"
             value={kapacitet}
-            onChange={(e) => setKapacitet(Number(e.target.value))}
+            onChange={(e) => setKapacitet(e.target.value)}
             placeholder="Unesite kapacitet"
             className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
@@ -111,11 +102,19 @@ export default function AzurirajTipSobu() {
           <input
             type="number"
             value={cijena}
-            onChange={(e) => setCijena(Number(e.target.value))}
+            onChange={(e) => setCijena(e.target.value)}
             placeholder="Unesite cijenu"
             className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           {errors.cijena && <p className="text-red-500 text-sm">{errors.cijena}</p>}
+           <input
+            type="text"
+            value={ime}
+            onChange={(e) => setIme(e.target.value)}
+            placeholder="Unesite ime sobe"
+            className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          {errors.ime && <p className="text-red-500 text-sm">{errors.ime}</p>}
           <div className="flex gap-4">
             <button
               type="button"

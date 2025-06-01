@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import {useRouter, useParams } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import Image from 'next/image';
 import Toast from '@/components/ui/Toast';
 import { UploadButton } from '@/lib/uploadthing';
@@ -71,7 +71,7 @@ export default function AzurirajSobu() {
       setSobaBroj(data.sobaBroj);
       setStatus(data.status);
       setSlike([]);
-      router.push('/admin/sobe');
+      setTimeout(() => router.push('/admin/sobe'), 2000);
     } catch (error) {
       setToast('Greška pri ažuriranju sobe.');
       console.error('Greska pri azuriranju sobe', error);

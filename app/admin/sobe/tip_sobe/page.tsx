@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react'
-import { tipSobe} from '@/types/tipSobe';
+import { tipSobe } from '@/types/tipSobe';
 
 export default function TipSobeLista() {
     const [tipSobe, setTipSobe] = useState<tipSobe[] | null>(null);
@@ -40,7 +40,7 @@ export default function TipSobeLista() {
                 <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Tipovi soba</h1>
                 <div className="flex gap-3 w-full sm:w-auto">
                     <button
-                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition"
+                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition cursor-pointer"
                         onClick={() => {
                             router.push(`/admin/sobe/tip_sobe/dodaj`);
                         }}
@@ -65,13 +65,11 @@ export default function TipSobeLista() {
                             <tr key={item.id} className="hover:bg-gray-50 transition">
                                 <td className="py-2 px-4 border-b">{item.id}</td>
                                 <td className="py-2 px-4 border-b">{item.kapacitet}</td>
-                                 <td className="py-2 px-4 border-b">{item.ime}</td>
-                                  <td className="py-2 px-4 border-b">{item.cijena}</td>
-
-
+                                <td className="py-2 px-4 border-b">{item.ime}</td>
+                                <td className="py-2 px-4 border-b">{item.cijena}</td>
                                 <td className="py-2 px-4 border-b flex gap-2">
                                     <button
-                                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-lg font-medium transition"
+                                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-lg font-medium transition cursor-pointer"
                                         onClick={() => {
                                             router.push(`/admin/sobe/tip_sobe/${item.id}`);
                                         }}
@@ -97,8 +95,8 @@ export default function TipSobeLista() {
                     <button
                         key={idx}
                         className={`px-4 py-2 rounded font-semibold ${currentPage === idx + 1
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-gray-200 hover:bg-gray-300'
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-gray-200 hover:bg-gray-300'
                             }`}
                         onClick={() => setCurrentPage(idx + 1)}
                     >

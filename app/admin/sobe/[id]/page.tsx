@@ -55,7 +55,10 @@ export default function SobeId() {
       })
       .then(() => {
         setSoba(null);
-        setToast('Uspješno uklonili sobu.');
+        setTimeout(() => {
+          setToast('Uspješno uklonili sobu.');
+        }
+          , 2000);
         router.push('/admin/sobe');
       })
       .catch((error) => {
@@ -69,15 +72,19 @@ export default function SobeId() {
           Detalji soba
         </h1>
         <div className="space-y-4 mb-8">
-          <div className="flex items-center">
-            <span className="font-semibold w-32 text-gray-600">ID:</span>
-            <span className="text-gray-900">{soba?.id}</span>
-          </div>
+
           <div className="flex items-center">
             <span className="font-semibold w-32 text-gray-600">Broj:</span>
             <span className="text-gray-900">{soba?.sobaBroj}</span>
           </div>
-
+          <div className="flex items-center">
+            <span className="font-semibold w-32 text-gray-600">Opis:</span>
+            <span className="text-gray-900">{soba?.opis}</span>
+          </div>
+          <div className="flex items-center">
+            <span className="font-semibold w-32 text-gray-600">Cijena:</span>
+            <span className="text-gray-900">{soba?.tipSobe.cijena} €</span>
+          </div>
           <div className="flex items-center">
             <span className="font-semibold w-32 text-gray-600">Status:</span>
             <span className="text-gray-900">{soba?.status}</span>
@@ -123,7 +130,7 @@ export default function SobeId() {
           </p>
         )}
       </div>
-       <Toast message={toast} />
+      <Toast message={toast} />
     </div>
   );
 }

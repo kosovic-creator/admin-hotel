@@ -58,7 +58,7 @@ export default function AzurirajRezervaciju() {
       const data = await response.json();
       console.log('Updated:', data);
       setToast('Uspješno ste izmjenili rezervaciju .');
-      router.push('/admin/rezervacije');
+      setTimeout(() => router.push('/admin/rezervacije'), 2000);
     } catch (error) {
       console.error('Greska pri azuriranju rezervacije', error);
       setError(error as Error);
@@ -148,7 +148,7 @@ export default function AzurirajRezervaciju() {
           <p className="mt-4 text-red-600 text-center">Error: {error.message}</p>
         )}
       </div>
-          <Toast message={toast} />
+      <Toast message={toast} />
     </div>
   );
 }

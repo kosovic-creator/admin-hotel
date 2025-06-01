@@ -72,21 +72,20 @@ export default function DetaljiTipSobe() {
             <span className="text-gray-900">{tipSobe?.id}</span>
           </div>
           <div className="flex items-center">
-            <span className="font-semibold w-32 text-gray-600">Ime:</span>
+            <span className="font-semibold w-32 text-gray-600">Naziv:</span>
             <span className="text-gray-900">{tipSobe?.ime}</span>
           </div>
           <div className="flex items-center">
-            <span className="font-semibold w-32 text-gray-600">Prezime:</span>
+            <span className="font-semibold w-32 text-gray-600">Kapacitet:</span>
             <span className="text-gray-900">{tipSobe?.kapacitet}</span>
           </div>
           <div className="flex items-center">
-            <span className="font-semibold w-32 text-gray-600">Email:</span>
+            <span className="font-semibold w-32 text-gray-600">Cijena:</span>
             <span className="text-gray-900">{tipSobe?.cijena}</span>
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-4">
           <button
-
             className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 rounded-xl font-semibold transition  cursor-pointer"
             onClick={() => router.push(`/admin/sobe/tip_sobe`)}
           >
