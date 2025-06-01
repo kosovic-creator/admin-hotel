@@ -37,7 +37,7 @@ export default function Rezervacije() {
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Broj Noćenja</th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Ukupno za naplatu</th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Email</th>
-              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Potvrđena</th>
+              <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase"></th>
               <th className="px-6 py-3"></th>
             </tr>
           </thead>

@@ -36,7 +36,7 @@ export default function SobeLista() {
     const trenutnaSoba = (soba ?? []).slice(startIdx, startIdx + itemsPerPage);
 
     return (
-        <div className="max-w-3xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-2xl">
+        <div className="w-full mt-12 p-8 bg-white rounded-2xl shadow-2xl">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                 <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Lista soba</h1>
                 <div className="flex gap-3 w-full sm:w-auto">
@@ -51,12 +51,13 @@ export default function SobeLista() {
                 </div>
             </div>
             <div className="overflow-x-auto rounded-lg shadow">
-                <table className="min-w-full bg-white">
+                <table className="min-w-full w-full bg-white">
                     <thead>
                         <tr>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">ID</th>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Broj</th>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Tip</th>
+                            <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Opis</th>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Kapacitet</th>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Cijena</th>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Status</th>
@@ -69,10 +70,18 @@ export default function SobeLista() {
                             <tr key={item.id} className="hover:bg-gray-50 transition">
                                 <td className="py-2 px-4 border-b">{item.id}</td>
                                 <td className="py-2 px-4 border-b">{item.sobaBroj}</td>
-                                 <td className="py-2 px-4 border-b">{item.tipSobe.ime}</td>
-                                 <td className="py-2 px-4 border-b">{item.tipSobe.kapacitet}</td>
+                                <td className="py-2 px-4 border-b">{item.tipSobe.ime}</td>
+                                <td className="py-2 px-4 border-b">{item.opis}</td>
+                                <td className="py-2 px-4 border-b">{item.tipSobe.kapacitet}</td>
                                 <td className="py-2 px-4 border-b">{item.tipSobe.cijena}</td>
-                                <td className="py-2 px-4 border-b">{item.status}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <span className={`px-2 py-1 rounded text-xs font-medium
+                    ${item.status === 'spremna' ? 'bg-green-100 text-green-700'
+                                            : item.status === 'nije spremna' ? 'bg-red-100 text-red-600'
+                                                : ''}`}>
+                                        {item.status}
+                                    </span>
+                                </td>
                                 <td className="py-2 px-4 border-b">
                                     <div className="flex gap-2">
                                         {item.slike && item.slike.slice(0, 3).map((slika, idx) => (
@@ -119,8 +128,8 @@ export default function SobeLista() {
                     <button
                         key={idx}
                         className={`px-4 py-2 rounded font-semibold ${currentPage === idx + 1
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-gray-200 hover:bg-gray-300'
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-gray-200 hover:bg-gray-300'
                             }`}
                         onClick={() => setCurrentPage(idx + 1)}
                     >

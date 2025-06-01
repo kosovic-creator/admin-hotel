@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
 export async function GET() {
   const soba = await prisma.soba.findMany({
     include: {
-      tipSobe: true, // ovo je ispravno prema tvojoj šemi
+      tipSobe: true, 
     },
   });
   return NextResponse.json(soba);
