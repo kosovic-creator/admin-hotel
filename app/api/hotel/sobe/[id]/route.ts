@@ -46,11 +46,24 @@ export async function PUT(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const id = getIdFromRequest(request);
+    console.log('ID iz URL-a:', id, 'Tip:', typeof id);
+    const brojId = Number(id);
+    if (isNaN(brojId)) {
+      return NextResponse.json({ error: 'ID nije broj' }, { status: 400 });
+    }
+    const soba = await prisma.soba.findUnique({
+      where: { id: brojId },
+    });
+    console.log('Pronađena soba:', soba);
+    if (!soba) {
+      return NextResponse.json({ error: 'Nije nađena' }, { status: 404 });
+    }
     await prisma.soba.delete({
-      where: { id: Number(id) },
+      where: { id: brojId },
     });
     return NextResponse.json({ message: 'Obrisana' });
-  } catch {
-    return NextResponse.json({ error: 'Nije nađena' }, { status: 404 });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json({ error: 'Soba ne može biti obrisana dok postoje rezervacije za nju.' }, { status: 404 });
   }
 }

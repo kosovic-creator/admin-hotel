@@ -47,19 +47,30 @@ export default function SobeId() {
       .then(async (response) => {
         if (!response.ok) {
           const errorText = await response.text();
-          throw new Error(
-            `Server ne može da obradi zahtjev: ${response.status} ${errorText}`
-          );
+          // Pokušaj parsirati JSON
+          let errorMsg = 'Server ne može da obradi zahtjev.';
+          try {
+            const errorObj = JSON.parse(errorText);
+            if (
+              errorObj.error &&
+              errorObj.error.includes('foreign key constraint')
+            ) {
+              errorMsg =
+                'Soba ne može biti obrisana dok postoje rezervacije za nju.';
+            } else if (errorObj.error) {
+              errorMsg = errorObj.error;
+            }
+          } catch {
+            errorMsg = errorText;
+          }
+          throw new Error(errorMsg);
         }
         return response.json();
       })
       .then(() => {
         setSoba(null);
-        setTimeout(() => {
-          setToast('Uspješno uklonili sobu.');
-        }
-          , 2000);
-        router.push('/admin/sobe');
+        setToast('Uspješno uklonili sobu.');
+        setTimeout(() => router.push('/admin/sobe'), 2000);
       })
       .catch((error) => {
         setError(error);
