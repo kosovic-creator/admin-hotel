@@ -5,12 +5,10 @@ import { useRouter, useParams } from 'next/navigation';
 import Toast from '@/components/ui/Toast';
 import {tipoviSobaSchema } from "@/types/zod/tipSobaSchema";
 
-export default function DetaljiTipSobe() {
-  const params = useParams();
+export default function DodajTipSobe() {
   const router = useRouter();
   const [toast, setToast] = useState<string | null>(null);
   const [ime, setIme] = useState<string>('');
-  const [tipSobe, setTipSobe] = useState<string>();
   const [cijena, setCijena] = useState<string>('');
   const [kapacitet, setKapacitet] = useState<string>('');
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -63,7 +61,7 @@ export default function DetaljiTipSobe() {
             placeholder="Tip Sobe"
             className="w-full border border-gray-300 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition text-lg"
           />
-          {errors.ime && <p className="text-red-500 text-sm">{errors.ime}</p>}
+          {errors && <p className="text-red-500 text-sm">{errors.ime}</p>}
           <input
             type="number"
             value={kapacitet}
@@ -79,6 +77,7 @@ export default function DetaljiTipSobe() {
             placeholder="Cijena"
             className="w-full border border-gray-300 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition text-lg"
           />
+            {errors.cijena && <p className="text-red-500 text-sm">{errors.cijena}</p>}
         </div>
         <div className="flex gap-4">
           <button
