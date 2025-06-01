@@ -31,6 +31,8 @@ const handler = NextAuth({
           throw new Error("Netačan email ili lozinka");
         }
 
+        console.log("USER FROM DB", user);
+
         // Dodaj rolu u objekat koji se vraća
         return { id: user.id.toString(), email: user.email, role: user.role };
       },
@@ -41,14 +43,13 @@ const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user }) {
-      // Dodaj rolu u JWT token
       if (user) {
+        console.log("USER IN JWT CALLBACK", user);
         token.role = user.role;
       }
       return token;
     },
     async session({ session, token }) {
-      // Dodaj rolu u session objekat
       if (token && session.user) {
         session.user.role = token.role as string;
       }
