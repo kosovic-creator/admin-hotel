@@ -92,7 +92,8 @@ export default function SobeLista() {
                                 </td>
                                 <td className="py-2 px-4 border-b flex gap-2">
                                     <button
-                                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-lg font-medium transition"
+
+                                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-lg font-medium transition cursor-pointer"
                                         onClick={() => {
                                             router.push(`/admin/sobe/${item.id}`);
                                         }}

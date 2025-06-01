@@ -40,7 +40,7 @@ export default function GostiLista() {
                 <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Lista gostiju</h1>
                 <div className="flex gap-3 w-full sm:w-auto">
                     <button
-                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition"
+                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition cursor-pointer"
                         onClick={() => {
                             router.push(`/admin/gosti/dodaj`);
                         }}

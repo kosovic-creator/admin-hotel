@@ -86,19 +86,22 @@ export default function DetaljiTipSobe() {
         </div>
         <div className="flex flex-col sm:flex-row gap-4">
           <button
-            className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 rounded-xl font-semibold transition"
+
+            className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 rounded-xl font-semibold transition  cursor-pointer"
             onClick={() => router.push(`/admin/sobe/tip_sobe`)}
           >
             Nazad
           </button>
           <button
-            className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl font-semibold transition"
+
+            className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl font-semibold transition  cursor-pointer"
             onClick={() => router.push(`/admin/sobe/tip_sobe/uredi/${tipSobe?.id}`)}
           >
             Ažuriraj
           </button>
           <button
-            className="flex-1 bg-red-100 hover:bg-red-200 text-red-700 py-2 rounded-xl font-semibold transition"
+
+            className="flex-1 bg-red-100 hover:bg-red-200 text-red-700 py-2 rounded-xl font-semibold transition  cursor-pointer"
             onClick={() => brišiTipSobe(tipSobe?.id as number)}
           >
             Briši Tip

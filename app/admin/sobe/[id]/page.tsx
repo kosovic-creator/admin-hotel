@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
-import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Sobe } from '@/types/sobe';
+import Toast from '@/components/ui/Toast';
 
 export default function SobeId() {
   const params = useParams();
@@ -16,6 +16,7 @@ export default function SobeId() {
   const [opis, setOpis] = useState<string>('');
   const [cijena, setCijena] = useState<number>(0);
   const [slike, setSlike] = useState<string[]>([]);
+  const [toast, setToast] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -54,11 +55,11 @@ export default function SobeId() {
       })
       .then(() => {
         setSoba(null);
+        setToast('Uspješno uklonili sobu.');
         router.push('/admin/sobe');
       })
       .catch((error) => {
-        setError(error); // Prikaži grešku korisniku
-        console.error('Greška pri brisanju gosta:', error);
+        setError(error);
       });
   }
   return (
@@ -98,19 +99,19 @@ export default function SobeId() {
         </div>
         <div className="flex flex-col sm:flex-row gap-4">
           <button
-            className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 rounded-xl font-semibold transition"
+            className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 rounded-xl font-semibold transition  cursor-pointer"
             onClick={() => router.push(`/admin/sobe`)}
           >
             Nazad
           </button>
           <button
-            className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl font-semibold transition"
+            className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl font-semibold transition cursor-pointer"
             onClick={() => router.push(`/admin/sobe/uredi/${soba?.id}`)}
           >
             Ažuriraj
           </button>
           <button
-            className="flex-1 bg-red-100 hover:bg-red-200 text-red-700 py-2 rounded-xl font-semibold transition"
+            className="flex-1 bg-red-100 hover:bg-red-200 text-red-700 py-2 rounded-xl font-semibold transition cursor-pointer"
             onClick={() => brišiSobu(soba?.id as number)}
           >
             Briši sobu
@@ -122,6 +123,7 @@ export default function SobeId() {
           </p>
         )}
       </div>
+       <Toast message={toast} />
     </div>
   );
 }

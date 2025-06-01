@@ -4,14 +4,13 @@ import { Sobe } from '@/types/sobe';
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import DatePicker from 'react-datepicker';
-import { rezervacijaSchema } from '@/types/zod/rezervacijeSchema'; // prilagodi putanju ako treba
+import { rezervacijaSchema } from '@/types/zod/rezervacijeSchema';
 import { Gost } from '@/types/gosti';
 import Toast from '@/components/ui/Toast';
-import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
 
 function DodajRezrvaciju() {
   const searchParams = useSearchParams();
-  const sobaId = searchParams.get('sobaId'); // ispravno ime parametra
+  const sobaId = searchParams.get('sobaId');
   const pocetak = searchParams.get('pocetak');
   const kraj = searchParams.get('kraj');
   const [selectedSobaId, setSelectedSobaId] = useState<number | null>(null);
@@ -20,7 +19,6 @@ function DodajRezrvaciju() {
   const [ime, setIme] = useState<string>('');
   const [status, setStatus] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-
   const [toast, setToast] = useState<string | null>(null);
   const [soba, setSoba] = useState<Sobe[]>([]);
   const [gost, setGost] = useState<Gost[]>([]);
@@ -44,20 +42,15 @@ function DodajRezrvaciju() {
 
   async function novaRezervacija(e?: React.FormEvent) {
     if (e) e.preventDefault();
-    console.log('Pokušaj slanja forme'); // Dodaj ovo
 
     const data = {
       sobaId: selectedSobaId ? Number(selectedSobaId) : undefined,
       pocetak: startDate ? startDate.toISOString() : undefined,
       kraj: endDate ? endDate.toISOString() : undefined,
-
       ime,
       email,
-      // status,
     };
-
     const result = rezervacijaSchema.safeParse(data);
-
     if (!result.success) {
       const fieldErrors: { [key: string]: string } = {};
       result.error.errors.forEach(err => {
@@ -76,10 +69,8 @@ function DodajRezrvaciju() {
         sobaId: Number(selectedSobaId),
         pocetak: startDate ? startDate.toISOString() : undefined,
         kraj: endDate ? endDate.toISOString() : undefined,
-
-        ime,      // dodaj ovo
-        email,    // i ovo
-        // status, // ako backend očekuje status
+        ime,
+        email,
       };
       const response = await fetch(`/api/hotel/rezervacije`, {
         method: 'POST',
@@ -96,7 +87,6 @@ function DodajRezrvaciju() {
       setEndDate(null);
       setIme('');
       setEmail('');
-      // setStatus('');
       setToast('Uspješno dodata nova rezrvacija.');
       router.push('/admin/rezervacije');
     } catch (error) {

@@ -104,7 +104,6 @@ export default function AzurirajSobu() {
             className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           {errors.sobaBroj && <p className="text-red-500 text-sm">{errors.sobaBroj}</p>}
-
           <input
             type="text"
             value={opis}
@@ -141,7 +140,8 @@ export default function AzurirajSobu() {
           <div className="flex gap-4">
             <button
               type="button"
-              className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition"
+
+              className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition cursor-pointer"
               onClick={() => {
                 router.push(`/admin/sobe`);
               }}
@@ -150,7 +150,8 @@ export default function AzurirajSobu() {
             </button>
             <button
               type="submit" // <-- OVO MORA BITI submit
-              className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition"
+
+              className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition  cursor-pointer"
             >
               Ažuriraj Sobu
             </button>

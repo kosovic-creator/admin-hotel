@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Toast from '@/components/ui/Toast';
 import { gostSchema } from '@/types/zod/gostSchema';
 
-
 export default function DodajGosta() {
   const [toast, setToast] = useState<string | null>(null);
   const [ime, setIme] = useState<string>('');
@@ -36,7 +35,6 @@ export default function DodajGosta() {
       if (!response.ok) {
         throw new Error('Greška kod servera');
       }
-
       setIme('');
       setPrezime('');
       setEmail('');
@@ -47,11 +45,10 @@ export default function DodajGosta() {
       setToast('Greška pri dodavanju Gosta!');
     }
   }
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-200 via-blue-50 to-gray-100 px-4">
       <div className="bg-white/90 backdrop-blur-md p-10 rounded-3xl shadow-2xl w-full max-w-lg space-y-8 border border-gray-200">
-        <p className="text-4xl font-extrabold text-center text-blue-900 mb-4 tracking-tight drop-shadow">Novi Gost</p>
+        <p className="text-4xl font-extrabold text-center text-blue-900 mb-4 tracking-tight drop-shadow cursor-pointer">Novi Gost</p>
         <div className="space-y-5">
           <input
             type="text"
@@ -80,7 +77,7 @@ export default function DodajGosta() {
           <div className="flex gap-4">
             <button
               type="button"
-              className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition"
+              className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition cursor-pointer"
               onClick={() => {
                 router.push(`/admin/gosti`);
               }}
@@ -90,7 +87,7 @@ export default function DodajGosta() {
             <button
               type="button"
               onClick={noviGost}
-              className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-blue-700 transition"
+              className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-blue-700 transition cursor-pointer"
             >
               Dodaj Gosta
             </button>

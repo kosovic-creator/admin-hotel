@@ -69,10 +69,6 @@ export default function RezervacijaId() {
                 <span className="font-semibold w-32 text-gray-500 text-sm">ID:</span>
                 <span className="text-gray-900 text-base">{rezervacija.id}</span>
               </div>
-              {/* <div className="flex items-center">
-                <span className="font-semibold w-32 text-gray-500 text-sm">Naziv:</span>
-                <span className="text-gray-900 text-base">{rezervacija.soba?.tipSobe.ime}</span>
-              </div> */}
               <div className="flex items-center">
                 <span className="font-semibold w-32 text-gray-500 text-sm">Korisnik:</span>
                 <span className="text-gray-900 text-base">{rezervacija.gost?.ime}</span>
@@ -85,29 +81,20 @@ export default function RezervacijaId() {
                 <span className="font-semibold w-32 text-gray-500 text-sm">Završetak:</span>
                 <span className="text-gray-900 text-base">{rezervacija.kraj}</span>
               </div>
-              {/* <div className="flex items-center">
-                <span className="font-semibold w-32 text-gray-500 text-sm">Status</span>
-                <span className="text-gray-900 text-base">{rezervacija.soba.status}</span>
-              </div>
-              <div className="flex items-center">
-                <span className="font-semibold w-32 text-gray-500 text-sm">Osoba</span>
-                <span className="text-gray-900 text-base">{rezervacija.soba.tipSobe.kapacitet}</span>
-              </div> */}
             </div>
-
             <div className="flex flex-col sm:flex-row gap-4 mt-6">
               <Link href="/admin/rezervacije" className="flex-1">
-                <button className="w-full px-4 py-2 rounded-xl bg-gray-200 text-gray-700 hover:bg-gray-300 font-semibold transition shadow">
+                <button className="w-full px-4 py-2 rounded-xl bg-gray-200 text-gray-700 hover:bg-gray-300 font-semibold transition shadow cursor-pointer">
                   Nazad
                 </button>
               </Link>
               <Link href={`/admin/rezervacije/uredi/${rezervacija.id}`} className="flex-1">
-                <button className="w-full px-4 py-2 rounded-xl bg-yellow-500 text-white hover:bg-yellow-600 font-semibold transition shadow">
+                <button className="w-full px-4 py-2 rounded-xl bg-yellow-500 text-white hover:bg-yellow-600 font-semibold transition shadow cursor-pointer">
                   Izmjeni
                 </button>
               </Link>
               <button
-                className="flex-1 w-full px-4 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 font-semibold transition shadow"
+                className="flex-1 w-full px-4 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 font-semibold transition shadow cursor-pointer"
                 onClick={() => deleteRezervacije(rezervacija.id)}
               >
                 Briši

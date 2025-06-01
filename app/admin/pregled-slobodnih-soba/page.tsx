@@ -22,7 +22,7 @@ export default function PregledSlobodnihSoba() {
   const itemsPerPage = 10; // Možeš promijeniti broj po želji
 
   useEffect(() => {
-    const ucitajApartmane = async () => {
+    const ucitajSobe = async () => {
       try {
         const response = await fetch('/api/hotel/sobe')
         if (!response.ok) throw new Error('Greška pri učitavanju soba')
@@ -42,10 +42,10 @@ export default function PregledSlobodnihSoba() {
         setError(err instanceof Error ? err.message : 'Nepoznata greška rezervacija')
       }
     }
-    Promise.all([ucitajApartmane(), ucitajRezervacije()]).finally(() => setLoading(false))
+    Promise.all([ucitajSobe(), ucitajRezervacije()]).finally(() => setLoading(false))
   }, [])
   if (error) return <div className="text-red-500 p-4">Greška: {error}</div>
-  const isApartmanDostupan = (sobaId: number) => {
+  const isSobaDostupana = (sobaId: number) => {
     if (!startDate || !endDate) return true;
 
     return !rezervacije.some(r =>
@@ -56,7 +56,7 @@ export default function PregledSlobodnihSoba() {
   };
 
   // Filtriraj dostupne soba
-  const dostupneSobe = soba.filter(soba => isApartmanDostupan(soba.id));
+  const dostupneSobe = soba.filter(soba => isSobaDostupana(soba.id));
   const totalPages = Math.ceil(dostupneSobe.length / itemsPerPage);
 
   // Sobe za prikaz na trenutnoj stranici
@@ -92,6 +92,7 @@ export default function PregledSlobodnihSoba() {
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Broj Sobe</th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Naziv</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Opis</th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Cijena (€)</th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Slike</th>
                   <th className="px-6 py-4"></th>
@@ -103,6 +104,7 @@ export default function PregledSlobodnihSoba() {
                     <td className="px-6 py-4 whitespace-nowrap">{soba.id}</td>
                     <td className="px-6 py-4 font-semibold text-gray-800">{soba.sobaBroj}</td>
                     <td className="px-6 py-4 max-w-xs text-gray-600">{soba.tipSobe.ime}</td>
+                    <td className="px-6 py-4 whitespace-nowrap font-mono">{soba.opis}</td>
                     <td className="px-6 py-4 whitespace-nowrap font-mono">{soba.tipSobe.cijena}</td>
                   <td className="px-6 py-4">
                     <div className="flex space-x-2">

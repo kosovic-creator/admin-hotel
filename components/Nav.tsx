@@ -35,7 +35,8 @@ export default function Nav({ isSidebarOpen, setIsSidebarOpen }: NavProps) {
             <div>
               <button
                 onClick={() => setIsSidebarOpen(true)}
-                className="p-2 rounded-lg hover:bg-gray-700 focus:outline-none transition-colors duration-200"
+
+                className="p-2 rounded-lg hover:bg-gray-700 focus:outline-none transition-colors duration-200 cursor-pointer"
                 aria-label="Otvori meni"
               >
                 {/* Hamburger ikonica */}
@@ -45,7 +46,6 @@ export default function Nav({ isSidebarOpen, setIsSidebarOpen }: NavProps) {
               </button>
             </div>
             {/* Desna strana */}
-
             <div className="flex items-center gap-4">
               <Link href="/admin">
               <HomeIcon className="h-6 w-6 text-white" />

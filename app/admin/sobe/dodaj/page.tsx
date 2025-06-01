@@ -39,7 +39,6 @@ export default function DodajSobu() {
       return;
     }
     try {
-      console.log('Šaljem fetch...');
       const response = await fetch(`/api/hotel/sobe`, {
         method: 'POST',
         body: JSON.stringify(body),
@@ -100,7 +99,6 @@ export default function DodajSobu() {
               alert(`Greška pri uploadu: ${error.message}`);
             }}
           />
-
           {errors.slike && <p className="text-red-500 text-sm">{errors.slike}</p>}
           {slike.length > 0 && (
             <div className="flex gap-4 flex-wrap my-4 justify-center">
@@ -132,7 +130,7 @@ export default function DodajSobu() {
         <div className="flex gap-4">
           <button
             type="button"
-            className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition"
+            className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition cursor-pointer"
             onClick={() => {
               router.push(`/admin/sobe`);
             }}
@@ -142,7 +140,7 @@ export default function DodajSobu() {
           <button
             type="button"
             onClick={novaSoba}
-            className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition"
+            className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition cursor-pointer"
           >
             Dodaj Sobu
           </button>

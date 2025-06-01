@@ -2,8 +2,6 @@
 'use client';
 import React, { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import Image from 'next/image';
-import { UploadButton } from '@/lib/uploadthing';
 import Toast from '@/components/ui/Toast';
 import {tipoviSobaSchema } from "@/types/zod/tipSobaSchema";
 
@@ -76,7 +74,6 @@ export default function DetaljiTipSobe() {
             className="w-full border border-gray-300 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition text-lg"
           />
           {errors.kapacitet && <p className="text-red-500 text-sm">{errors.kapacitet}</p>}
-
           <input
             type="number"
             value={cijena}
@@ -88,7 +85,8 @@ export default function DetaljiTipSobe() {
         <div className="flex gap-4">
           <button
             type="button"
-            className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition"
+
+            className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition  cursor-pointer"
             onClick={() => {
               router.push(`/admin/sobe/tip_sobe`);
             }}
@@ -98,7 +96,8 @@ export default function DetaljiTipSobe() {
           <button
             type="button"
             onClick={noviTipSobe}
-            className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition"
+
+            className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition   cursor-pointer"
           >
             Dodaj Tip
           </button>

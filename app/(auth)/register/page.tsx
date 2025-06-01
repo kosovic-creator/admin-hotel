@@ -65,7 +65,7 @@ const [toast, setToast] = useState<string | null>(null);
         </div>
         <button
           type="submit"
-         className="bg-gray-900 hover:bg-gray-500 text-amber-50 transition font-semibold py-3 rounded-lg shadow"
+         className="bg-black hover:bg-gray-700 text-amber-50 transition font-semibold py-3 rounded-lg shadow cursor-pointer"
         >
           Registruj se
         </button>

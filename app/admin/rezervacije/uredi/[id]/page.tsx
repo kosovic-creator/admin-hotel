@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Toast from '@/components/ui/Toast';
@@ -12,7 +11,7 @@ export default function AzurirajRezervaciju() {
   const [toast, setToast] = useState<string | null>(null);
   const router = useRouter();
   const [gostId, setGostId] = useState<number>();
-  const [sobaId, setSobeId] = useState<number>(); // promenite ime iz 'sobaId' u 'sobaId'
+  const [sobaId, setSobeId] = useState<number>();
   const [error, setError] = useState<Error | null>(null);
   const [rezervacija, setRezervacija] = useState<Rezervacija | null>(null);
   const [pocetak, setPocetak] = useState<string>('');
@@ -44,7 +43,7 @@ export default function AzurirajRezervaciju() {
       const response = await fetch(`/api/hotel/rezervacije/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
-          sobaId, // <-- ispravljeno ime polja
+          sobaId,
           gostId,
           pocetak,
           kraj,
@@ -58,7 +57,7 @@ export default function AzurirajRezervaciju() {
       }
       const data = await response.json();
       console.log('Updated:', data);
-      setToast('Uspješno napravili izmjenu .');
+      setToast('Uspješno ste izmjenili rezervaciju .');
       router.push('/admin/rezervacije');
     } catch (error) {
       console.error('Greska pri azuriranju rezervacije', error);
@@ -126,7 +125,8 @@ export default function AzurirajRezervaciju() {
           <div className="flex gap-4">
             <button
               type="button"
-              className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition"
+
+              className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition  cursor-pointer"
               onClick={() => {
                 router.push(`/admin/rezervacije`);
               }}
@@ -135,7 +135,9 @@ export default function AzurirajRezervaciju() {
             </button>
             <button
               type="submit"
-              className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-blue-700 transition"
+
+              className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition  cursor-pointer"
+              disabled={!gostId || !sobaId || !pocetak || !kraj}
             >
               Ažuriraj Rezervaciju
             </button>
@@ -146,148 +148,7 @@ export default function AzurirajRezervaciju() {
           <p className="mt-4 text-red-600 text-center">Error: {error.message}</p>
         )}
       </div>
+          <Toast message={toast} />
     </div>
   );
 }
-
-
-
-
-//   const router = useRouter();
-//   const params = useParams<{ id: string }>();
-//   const [form, setForm] = useState<Rezervacija>({
-//     apartmanId: 0,
-//     korisnikId: 0,
-//     pocetak: '',
-//     kraj: '',
-//     gosti: 1,
-//   });
-//   const [greske, setGreske] = useState<Record<string, string[]>>({});
-//   const [loading, setLoading] = useState(false);
-
-//   // Učitaj postojeće podatke rezervacije
-//   useEffect(() => {
-//     async function fetchRezervacija() {
-//       const res = await fetch(`/api/rezervacije/${params.id}`);
-//       if (res.ok) {
-//         const data = await res.json();
-//         setForm({
-//           apartmanId: data.apartmanId ?? 0,
-//           korisnikId: data.korisnikId ?? 0,
-//           pocetak: data.pocetak ? data.pocetak.slice(0, 16) : '',
-//           kraj: data.kraj ? data.kraj.slice(0, 16) : '',
-//           gosti: data.gosti ?? 1,
-//         });
-//       }
-//     }
-//     fetchRezervacija();
-//   }, [params.id]);
-
-//   // Handler za promjenu inputa
-//   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-//     const { name, value } = e.target;
-//     setForm((prev) => ({
-//       ...prev,
-//       [name]: name === 'gosti' || name === 'apartmanId' || name === 'korisnikId'
-//         ? Number(value)
-//         : value,
-//     }));
-//   }
-//   // Slanje forme
-//   async function handleSubmit(e: React.FormEvent) {
-//     e.preventDefault();
-//     setLoading(true);
-//     setGreske({});
-//     const res = await fetch(`/api/rezervacije/${params.id}`, {
-//       method: 'PUT',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(form),
-//     });
-
-//     if (res.ok) {
-//         setToast('Rezervacija je uspešno izmjenjena!');
-//       router.push('/admin/rezervacije');
-//     } else {
-//       const data = await res.json();
-//       setGreske(data.greske?.fieldErrors || {});
-//     }
-//     setLoading(false);
-//   }
-
-//   return (
-//     <div className="max-w-lg mx-auto mt-10 p-8 bg-white rounded-xl shadow-md">
-//       <h2 className="text-2xl  mb-6 text-center text-black">Ažuriraj Rezervaciju</h2>
-//       <form onSubmit={handleSubmit} className="space-y-5">
-//         <div>
-//           <label className="block font-medium">Apartman ID</label>
-//           <input
-//             type="number"
-//             name="apartmanId"
-//             value={form.apartmanId}
-//             onChange={handleChange}
-//             className="mt-1 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-//             required
-//           />
-//           {greske.apartmanId && <p className="text-red-500 text-sm">{greske.apartmanId.join(', ')}</p>}
-//         </div>
-//         <div>
-//           <label className="block font-medium">Korisnik ID</label>
-//           <input
-//             type="number"
-//             name="korisnikId"
-//             value={form.korisnikId}
-//             onChange={handleChange}
-//             className="mt-1 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-//             required
-//           />
-//           {greske.korisnikId && <p className="text-red-500 text-sm">{greske.korisnikId.join(', ')}</p>}
-//         </div>
-//         <div>
-//           <label className="block font-medium">Početak</label>
-//           <input
-//             type="datetime-local"
-//             name="pocetak"
-//             value={form.pocetak}
-//             onChange={handleChange}
-//             className="mt-1 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-//             required
-//           />
-//           {greske.pocetak && <p className="text-red-500 text-sm">{greske.pocetak.join(', ')}</p>}
-//         </div>
-//         <div>
-//           <label className="block font-medium">Kraj</label>
-//           <input
-//             type="datetime-local"
-//             name="kraj"
-//             value={form.kraj}
-//             onChange={handleChange}
-//             className="mt-1 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-//             required
-//           />
-//           {greske.kraj && <p className="text-red-500 text-sm">{greske.kraj.join(', ')}</p>}
-//         </div>
-//         <div>
-//           <label className="block font-medium">Broj gostiju</label>
-//           <input
-//             type="number"
-//             name="gosti"
-//             min={1}
-//             value={form.gosti}
-//             onChange={handleChange}
-//             className="mt-1 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-//             required
-//           />
-//           {greske.gosti && <p className="text-red-500 text-sm">{greske.gosti.join(', ')}</p>}
-//         </div>
-//         <button
-//           type="submit"
-//           disabled={loading}
-//           className="w-full bg-black text-white font-semibold py-2 rounded hover:bg-blue-900 transition"
-//         >
-//           {loading ? 'Ažuriranje...' : 'Ažuriraj'}
-//         </button>
-//       </form>
-//       <Toast message={toast} />
-//     </div>
-//   );
-// }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -17,65 +16,6 @@ export default function Rezervacije() {
       .then(data => setRezervacije(data))
       .catch(err => console.error('Greška pri učitavanju:', err));
   }, []);
-  // async function azirirajRezervaciju(
-  //   id: number,
-  //   status: string,
-  //   sobaId: number,
-  //   pocetak: string,
-  //   kraj: string,
-
-  // ) {
-  //   try {
-  //     const response = await fetch(`/api/hotel/rezervacije/${id}`, {
-  //       method: 'PUT',
-  //       body: JSON.stringify({
-  //         id,
-  //         sobaId,
-  //         pocetak,
-  //         kraj,
-  //         // Dodaj gostId u telo zahteva
-  //       }),
-  //       headers:
-  //       {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error('Nema odgovora sa servera');
-  //     }
-  //     const data = await response.json();
-  //     setRezervacije(prev =>
-  //       prev.map(r =>
-  //         r.id === id ? { ...r, status } : r
-  //       )
-  //     );
-  //   } catch (error) {
-  //     console.error('Greska pri azuriranju rezervacije', error);
-  //   }
-
-  // }
-  // async function azurirajStatusSobe(sobaId: number, noviStatus: string) {
-  //   try {
-  //     const response = await fetch(`/api/hotel/sobe/${sobaId}`, {
-  //       method: 'PUT', // ili PATCH, zavisi od tvoje API implementacije
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ status: noviStatus }),
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error('Nema odgovora sa servera');
-  //     }
-  //     // Po želji: ažuriraj lokalni state da reflektuje promenu
-  //     setRezervacije(prev =>
-  //       prev.map(r =>
-  //         r.soba.id === sobaId ? { ...r, soba: { ...r.soba, status: noviStatus } } : r
-  //       )
-  //     );
-  //   } catch (error) {
-  //     console.error('Greška pri ažuriranju statusa sobe', error);
-  //   }
-  // }
   const filteredRezervacije = rezervacije.filter(r => r.soba && r.gost);
   const totalPages = Math.ceil(filteredRezervacije.length / PAGE_SIZE);
   const paginatedRezervacije = filteredRezervacije.slice(
@@ -96,10 +36,8 @@ export default function Rezervacije() {
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Kraj</th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Broj Noćenja</th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Ukupno za naplatu</th>
-              {/* <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Status</th> */}
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Email</th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Potvrđena</th>
-
               <th className="px-6 py-3"></th>
             </tr>
           </thead>
@@ -113,34 +51,11 @@ export default function Rezervacije() {
                 <td className="px-6 py-4 whitespace-nowrap">{new Date(r.kraj).toLocaleDateString()}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{r.brojNocenja}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{r.ukupno}</td>
-                {/* <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 py-1 rounded text-xs font-medium
-                    ${r.soba.status === 'potvrđena' ? 'bg-green-100 text-green-700' :
-                      r.soba.status === 'otkazana' ? 'bg-red-100 text-blue-900' :
-
-                          'bg-yellow-100 text-yellow-700'}`}>
-                    {r.soba.status}
-                  </span>
-                </td> */}
                 <td className="px-6 py-4 whitespace-nowrap">{r.gost.email}</td>
-                {/* <td>
-                  <input
-                    className="ml-5"
-                    type="checkbox"
-                    checked={r.soba.status === 'potvrđena'}
-                    disabled={r.soba.status === 'otkazana'}
-                    onChange={() =>
-                      azurirajStatusSobe(
-                        r.soba.id,
-                        r.soba.status === 'potvrđena' ? 'otkazana' : 'potvrđena'
-                      )
-                    }
-                  />
-                </td> */}
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex gap-2 flex-row-reverse w-full pr-5 text-green-500 hover:text-green-800 transition duration-300">
                     <button
-                      className="bg-blue-600 hover:bg-blue-800 text-white px-4 py-1 rounded-lg font-medium transition"
+                      className="bg-blue-600 hover:bg-blue-800 text-white px-4 py-1 rounded-lg font-medium transition cursor-pointer"
                       onClick={() => {
                         router.push(`/admin/rezervacije/${r.id}`);
                       }}

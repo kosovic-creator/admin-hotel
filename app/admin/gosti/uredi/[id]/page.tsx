@@ -73,7 +73,6 @@ export default function AzurirajGosta() {
       console.error('Greska pri azuriranju gosta', error);
     }
   }
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -112,7 +111,7 @@ export default function AzurirajGosta() {
           <div className="flex gap-4">
             <button
               type="button"
-              className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition"
+              className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition cursor-pointer"
               onClick={() => {
                 router.push(`/admin/gosti`);
               }}
@@ -121,7 +120,7 @@ export default function AzurirajGosta() {
             </button>
             <button
               type="submit"
-              className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition"
+              className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition cursor-pointer"
             >
               Ažuriraj gosta
             </button>
