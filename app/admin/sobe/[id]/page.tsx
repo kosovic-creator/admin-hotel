@@ -68,7 +68,7 @@ export default function SobeId() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-white to-gray-100">
       <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8">
-        <h1 className="text-3xl font-extrabold text-center text-gray-900 mb-8 tracking-tight border-b pb-4">
+        <h1 className="text-3xl font-bold text-center text-gray-900 mb-8 tracking-tight border-b pb-4">
           Detalji soba
         </h1>
         <div className="space-y-4 mb-8">

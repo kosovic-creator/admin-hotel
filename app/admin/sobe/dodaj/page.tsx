@@ -63,7 +63,7 @@ export default function DodajSobu() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-white to-gray-100 px-4">
       <div className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-lg space-y-8">
-        <p className="text-4xl font-extrabold text-center text-blue-900 mb-4 tracking-tight">Nova Soba</p>
+        <p className="text-2xl font-bold text-center text-black mb-4 tracking-tight">Nova Soba</p>
         <div className="space-y-5">
           <input
             type="number"

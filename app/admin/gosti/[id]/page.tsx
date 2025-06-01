@@ -63,7 +63,7 @@ export default function DetaljiGosta() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-300">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
-        <h1 className="text-3xl font-extrabold text-center text-gray-900 mb-8 tracking-tight border-b pb-4">
+        <h1 className="text-3xl font-bold text-center text-gray-900 mb-8 tracking-tight border-b pb-4">
           Detalji gosta
         </h1>
         <div className="space-y-4 mb-8">

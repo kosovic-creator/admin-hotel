@@ -109,7 +109,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         >
           {users && (
             <div className="flex flex-col gap-2">
-              <h1 className="text-3xl font-extrabold text-center text-gray-900 mb-6 tracking-tight border-b pb-4">
+              <h1 className="text-3xl font-bold text-center text-gray-900 mb-6 tracking-tight border-b pb-4">
                 Detalji korisnika
               </h1>
               <div className="space-y-4">

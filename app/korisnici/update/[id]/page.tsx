@@ -114,7 +114,7 @@ export default function UpdatePage() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300">
             <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-10">
-                <h4 className="text-3xl font-extrabold text-center mb-8 text-gray-900 tracking-tight">
+                <h4 className="text-3xl font-bold text-center mb-8 text-gray-900 tracking-tight">
                     Izmjeni korisnika
                 </h4>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-7">

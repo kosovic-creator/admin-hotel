@@ -77,7 +77,7 @@ export default function AddTodoForm() {
         onSubmit={handleSubmit}
         className="w-full max-w-md mx-auto mt-16 p-10 bg-white rounded-2xl shadow-2xl space-y-7 border border-gray-100"
       >
-        <h1 className="text-4xl font-extrabold text-center text-gray-900 mb-6 tracking-tight">
+        <h1 className="text-2xl font-bold text-center text-gray-900 mb-6 tracking-tight">
           Dodaj Korisnika
         </h1>
         <div className="space-y-2">

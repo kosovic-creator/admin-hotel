@@ -63,7 +63,7 @@ export default function RezervacijaId() {
       <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-gray-200 p-8">
         {rezervacija && (
           <div className="flex flex-col gap-2">
-            <h1 className="text-2xl font-extrabold text-center text-gray-900 mb-8 tracking-widest uppercase border-b pb-4">
+            <h1 className="text-2xl font-bold text-center text-gray-900 mb-8 tracking-widest uppercase border-b pb-4">
               Detalji rezervacije
             </h1>
             <div className="space-y-4 mb-8 bg-gray-50 rounded-xl p-6">

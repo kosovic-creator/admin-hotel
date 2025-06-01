@@ -83,7 +83,7 @@ export default function AzurirajTipSobu() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <p className="text-2xl font-extrabold text-center text-gray-800 mb-4">Ažuriranje Sobe</p>
+        <p className="text-2xl font-bold text-center text-gray-800 mb-4">Ažuriranje Sobe</p>
         <form
           className="flex flex-col gap-4"
           onSubmit={(e) => {

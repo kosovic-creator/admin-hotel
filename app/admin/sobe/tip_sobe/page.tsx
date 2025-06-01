@@ -37,7 +37,7 @@ export default function TipSobeLista() {
     return (
         <div className="max-w-3xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-2xl">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-                <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Tipovi soba</h1>
+                <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Tipovi soba</h1>
                 <div className="flex gap-3 w-full sm:w-auto">
                     <button
                         className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition cursor-pointer"
