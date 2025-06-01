@@ -1,8 +1,7 @@
 import { z } from "zod";
 
 export const rezervacijaSchema = z.object({
-  id: z.number().int().optional(), // autoincrement, obično optional kod kreiranja
-  // gostId: z.number().int().nullable().optional(), // može biti null ili undefined
+  id: z.number().int().optional(), 
   pocetak: z.coerce.date(), // prihvata string ili Date
   kraj: z.coerce.date(),
   sobaId: z.number().int(),
