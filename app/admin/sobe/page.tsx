@@ -76,9 +76,8 @@ export default function SobeLista() {
                                 <td className="py-2 px-4 border-b">{item.tipSobe.cijena}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <span className={`px-2 py-1 rounded text-xs font-medium
-                    ${item.status === 'spremna' ? 'bg-green-100 text-green-700'
-                                            : item.status === 'nije spremna' ? 'bg-red-100 text-red-600'
-                                                : ''}`}>
+                    ${item.status === 'spremna' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'
+                                        }`}>
                                         {item.status}
                                     </span>
                                 </td>
