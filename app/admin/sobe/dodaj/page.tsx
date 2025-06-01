@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Image from 'next/image';
 import { UploadButton } from '@/lib/uploadthing';
@@ -17,6 +17,21 @@ export default function DodajSobu() {
   const [slike, setSlike] = useState<string[]>([]);
   const [tip, setTip] = useState<string>('');
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [tipoviSoba, setTipoviSoba] = useState<{ id: number; ime: string }[]>([]);
+
+  useEffect(() => {
+    async function fetchTipoviSoba() {
+      try {
+        const res = await fetch('/api/hotel/tipSobe');
+        if (!res.ok) throw new Error('Greška pri učitavanju tipova soba');
+        const data = await res.json();
+        setTipoviSoba(data);
+      } catch (e) {
+        // Možete dodati error handling po potrebi
+      }
+    }
+    fetchTipoviSoba();
+  }, []);
 
   async function novaSoba() {
     setErrors({});
@@ -24,7 +39,7 @@ export default function DodajSobu() {
       sobaBroj: sobaBroj === '' ? undefined : Number(sobaBroj),
       tipSobeId: tip === '' ? undefined : Number(tip),
       opis,
-      status: statusAktivna ? 'aktivna' : 'neaktivna',
+      status: statusAktivna ? 'spremna' : 'nije  spremna',
       slike,
     };
     console.log('Body za validaciju:', body);
@@ -72,13 +87,18 @@ export default function DodajSobu() {
             placeholder="Broj Sobe"
             className="w-full border border-gray-300 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition text-lg"
           />
-          <input
-            type="number"
+          <select
             value={tip}
             onChange={(e) => setTip(e.target.value)}
-            placeholder="Tip Sobe"
             className="w-full border border-gray-300 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition text-lg"
-          />
+          >
+            <option value="">Odaberite tip sobe</option>
+            {tipoviSoba.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.ime}
+              </option>
+            ))}
+          </select>
           {errors.tip && <p className="text-red-500 text-sm">{errors.tip}</p>}
           <input
             type="text"
@@ -123,7 +143,7 @@ export default function DodajSobu() {
               className="w-5 h-5"
             />
             <label htmlFor="statusAktivna" className="text-lg">
-              Soba je aktivna
+              Soba je spremna
             </label>
           </div>
         </div>
