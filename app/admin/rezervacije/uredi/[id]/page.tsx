@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Toast from '@/components/ui/Toast';
 import { Rezervacija } from '@/types/rezervacije';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function AzurirajRezervaciju() {
   const params = useParams();
@@ -16,6 +17,7 @@ export default function AzurirajRezervaciju() {
   const [rezervacija, setRezervacija] = useState<Rezervacija | null>(null);
   const [pocetak, setPocetak] = useState<string>('');
   const [kraj, setKraj] = useState<string>('');
+  const [zauzetiTermini, setZauzetiTermini] = useState<{ start: string; end: string }[]>([]);
 
 
   useEffect(() => {
@@ -37,6 +39,31 @@ export default function AzurirajRezervaciju() {
     }
     if (id) učitajRezervacijuId();
   }, [id]);
+
+  useEffect(() => {
+    async function fetchZauzetiTermini() {
+      if (!sobaId) return;
+      const res = await fetch(`/api/hotel/rezervacije/zauzeti/${sobaId}`);
+      if (res.ok) {
+        const termini = await res.json();
+        // Izuzmi trenutnu rezervaciju iz zauzetih termina
+        setZauzetiTermini(
+          termini.filter(
+            (t: { start: string; end: string }) =>
+              !(t.start === rezervacija?.pocetak && t.end === rezervacija?.kraj)
+          )
+        );
+      }
+    }
+    fetchZauzetiTermini();
+  }, [sobaId, rezervacija]);
+
+  const excludeIntervals = zauzetiTermini.map(t => ({
+    start: new Date(t.start),
+    end: new Date(t.end),
+  }));
+
+  const isValidRange = pocetak && kraj && new Date(pocetak) < new Date(kraj);
 
   async function azirirajRezervaciju() {
     try {
@@ -67,7 +94,7 @@ export default function AzurirajRezervaciju() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <p className="text-2xl font-bold  text-center text-gray-800">Ažuriranje Rezervacije</p>
+        <p className="text-2xl font-bold  text-center text-gray-800 mb-6">Ažuriranje Rezervacije</p>
         <form
           className="flex flex-col gap-4"
           onSubmit={(e) => {
@@ -100,11 +127,14 @@ export default function AzurirajRezervaciju() {
           </div>
           <div>
             <label className="block font-medium">Početak</label>
-            <input
-              type="datetime-local"
-              name="pocetak"
-              value={pocetak}
-              onChange={(e) => setPocetak(e.target.value)}
+            <DatePicker
+              selected={pocetak ? new Date(pocetak) : null}
+              onChange={date => setPocetak(date ? date.toISOString().slice(0, 16) : '')}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={30}
+              dateFormat="yyyy-MM-dd'T'HH:mm"
+              excludeDateIntervals={excludeIntervals}
               className="mt-1 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
@@ -112,11 +142,14 @@ export default function AzurirajRezervaciju() {
           </div>
           <div>
             <label className="block font-medium">Kraj</label>
-            <input
-              type="datetime-local"
-              name="kraj"
-              value={kraj}
-              onChange={(e) => setKraj(e.target.value)}
+            <DatePicker
+              selected={kraj ? new Date(kraj) : null}
+              onChange={date => setKraj(date ? date.toISOString().slice(0, 16) : '')}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={30}
+              dateFormat="yyyy-MM-dd'T'HH:mm"
+              excludeDateIntervals={excludeIntervals}
               className="mt-1 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
@@ -135,14 +168,13 @@ export default function AzurirajRezervaciju() {
             </button>
             <button
               type="submit"
-
               className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition  cursor-pointer"
-              disabled={!gostId || !sobaId || !pocetak || !kraj}
+              disabled={!gostId || !sobaId || !pocetak || !kraj || !isValidRange}
             >
               Ažuriraj Rezervaciju
             </button>
-
           </div>
+          {!isValidRange && <p className="text-red-500 text-xs mt-1">Početak mora biti prije kraja!</p>}
         </form>
         {error && (
           <p className="mt-4 text-red-600 text-center">Error: {error.message}</p>
