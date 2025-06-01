@@ -4,7 +4,6 @@ import Link from "next/link";
 import { SignOut } from "@/components/sign-out";
 import { redirect } from "next/navigation"; // Import useRouter from next/navigation
 import { Session } from "next-auth"; // Import Session type
-
 export type SidebarProps = {
     session: Session;
     open: boolean;
@@ -18,7 +17,6 @@ const Sidebar: React.FC<SidebarProps> = ({ session, open, onClose }) => {
             redirect("/login");
         }
     }, [session]);
-
     // Close sidebar when clicking outside
     useEffect(() => {
         const handleOutsideClick = (event: MouseEvent) => {
@@ -28,18 +26,15 @@ const Sidebar: React.FC<SidebarProps> = ({ session, open, onClose }) => {
                 onClose(); // Call onClose prop when closing
             }
         };
-
         document.addEventListener("mousedown", handleOutsideClick);
         return () => {
             document.removeEventListener("mousedown", handleOutsideClick);
         };
     }, [onClose]);
-
     // Update local state when open prop changes
     useEffect(() => {
         setIsVisible(open);
     }, [open]);
-
     // Automatsko zatvaranje sidebara na timer
     useEffect(() => {
         if (isVisible) {
@@ -50,7 +45,6 @@ const Sidebar: React.FC<SidebarProps> = ({ session, open, onClose }) => {
             return () => clearTimeout(timer);
         }
     }, [isVisible, onClose]);
-
     return (
         <>
             <aside
@@ -89,8 +83,6 @@ const Sidebar: React.FC<SidebarProps> = ({ session, open, onClose }) => {
                     >
                         Gosti
                     </Link>
-
-
                     {session.user?.role === 'ADMIN' && (
                         <Link
                             href="/korisnici"
@@ -103,10 +95,10 @@ const Sidebar: React.FC<SidebarProps> = ({ session, open, onClose }) => {
                         {session ? (
                             <SignOut />
                         ) : (
-                                <Link
-                                    href="/login"
-                                    className="block w-full px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-center font-bold transition-colors"
-                                >
+                            <Link
+                                href="/login"
+                                className="block w-full px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-center font-bold transition-colors"
+                            >
                                 Prijavi se
                             </Link>
                         )}
@@ -116,5 +108,4 @@ const Sidebar: React.FC<SidebarProps> = ({ session, open, onClose }) => {
         </>
     );
 };
-
 export default Sidebar;

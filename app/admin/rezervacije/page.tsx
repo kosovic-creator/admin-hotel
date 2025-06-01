@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Rezervacija } from '@/types/rezervacije';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const PAGE_SIZE = 10;
 
@@ -9,6 +10,8 @@ export default function Rezervacije() {
   const router = useRouter();
   const [rezervacije, setRezervacije] = useState<Rezervacija[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [filterStart, setFilterStart] = useState<Date | null>(null);
+  const [filterEnd, setFilterEnd] = useState<Date | null>(null);
 
   useEffect(() => {
     fetch('/api/hotel/rezervacije')
@@ -16,7 +19,14 @@ export default function Rezervacije() {
       .then(data => setRezervacije(data))
       .catch(err => console.error('Greška pri učitavanju:', err));
   }, []);
-  const filteredRezervacije = rezervacije.filter(r => r.soba && r.gost);
+  const filteredRezervacije = rezervacije.filter(r => {
+    if (!r.soba || !r.gost) return false;
+    const pocetak = new Date(r.pocetak);
+    const kraj = new Date(r.kraj);
+    if (filterStart && pocetak < filterStart && kraj < filterStart) return false;
+    if (filterEnd && pocetak > filterEnd && kraj > filterEnd) return false;
+    return true;
+  });
   const totalPages = Math.ceil(filteredRezervacije.length / PAGE_SIZE);
   const paginatedRezervacije = filteredRezervacije.slice(
     (currentPage - 1) * PAGE_SIZE,
@@ -25,6 +35,34 @@ export default function Rezervacije() {
   return (
     <div className="w-full p-4">
       <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Rezervacije</h1>
+      <div className="mb-6">
+        <label className="block mb-2 text-sm font-medium text-gray-700">Filter po datumu:</label>
+        <div className="flex gap-4 items-end">
+          <input
+            type="date"
+            value={filterStart ? filterStart.toISOString().split('T')[0] : ''}
+            onChange={e => setFilterStart(e.target.value ? new Date(e.target.value) : null)}
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="date"
+            value={filterEnd ? filterEnd.toISOString().split('T')[0] : ''}
+            onChange={e => setFilterEnd(e.target.value ? new Date(e.target.value) : null)}
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onClick={() => {
+              setFilterStart(null);
+              setFilterEnd(null);
+              setCurrentPage(1);
+            }}
+            className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-700 font-medium"
+          >
+            Vrati
+          </button>
+        </div>
+      </div>
       <div className="overflow-x-auto rounded-lg shadow-lg bg-white w-full">
         <table className="min-w-full w-full border border-gray-200 rounded-lg">
           <thead className="bg-gray-100">

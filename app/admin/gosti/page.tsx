@@ -7,6 +7,7 @@ export default function GostiLista() {
     const [gost, setGost] = useState<Gost[] | null>(null);
     const [error, setError] = useState<Error | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState('');
     const itemsPerPage = 5;
     const router = useRouter();
 
@@ -29,14 +30,43 @@ export default function GostiLista() {
     if (error) {
         return <div>Error: {error.message}</div>;
     }
-    // Pagination logic
-    const totalPages = Math.ceil((gost ? gost.length : 0) / itemsPerPage);
+
+    const filtriraniGosti = (gost ?? []).filter(g =>
+        (g.ime + ' ' + g.prezime).toLowerCase().includes(search.toLowerCase())
+    );
+    const totalPages = Math.ceil(filtriraniGosti.length / itemsPerPage);
     const startIdx = (currentPage - 1) * itemsPerPage;
-    const trenutniGost = (gost ?? []).slice(startIdx, startIdx + itemsPerPage);
+    const trenutniGost = filtriraniGosti.slice(startIdx, startIdx + itemsPerPage);
 
     return (
         <div className="max-w-3xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-2xl">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+                <div className="mb-4 w-80 relative">
+                    <input
+                        type="text"
+                        value={search}
+                        onChange={e => {
+                            setSearch(e.target.value);
+                            setCurrentPage(1); // resetuj na prvu stranicu kad se pretražuje
+                        }}
+                        placeholder="Pretraži po imenu ili prezimenu..."
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
+                    />
+                    {search && (
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setSearch('');
+                                setCurrentPage(1);
+                            }}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700"
+                            tabIndex={-1}
+                            aria-label="Resetuj pretragu"
+                        >
+                            &#10005;
+                        </button>
+                    )}
+                </div>
                 <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Lista gostiju</h1>
                 <div className="flex gap-3 w-full sm:w-auto">
                     <button

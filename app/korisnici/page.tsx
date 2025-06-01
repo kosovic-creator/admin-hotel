@@ -1,6 +1,5 @@
 //
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 'use client';
 import { useEffect, useState, useTransition } from 'react';
 import Link from 'next/link';
@@ -10,7 +9,6 @@ import LoadingDots from '@/components/loading-dots';
 import { useSession } from "next-auth/react";
 import { Users } from '@/types/users';
 import { useRouter } from 'next/navigation';
-
 export default function UsersPage() {
   const [users, setUsers] = useState<Users[]>([]);
   const [toast, setToast] = useState<string | null>(null);
@@ -18,11 +16,9 @@ export default function UsersPage() {
   const [isPending, startTransition] = useTransition();
   const { data: session } = useSession();
   const router = useRouter();
-
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-
   useEffect(() => {
     startTransition(() => {
       fetch('/api/auth/korisnici')
@@ -30,21 +26,17 @@ export default function UsersPage() {
         .then(setUsers);
     });
   }, []);
-
   useEffect(() => {
     setCurrentPage(1);
   }, [filter]);
-
   // Filter users by email
   const filteredUsers = users.filter(user =>
     user.email.toLowerCase().includes(filter.toLowerCase())
   );
-
   // Pagination logic
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentUsers = filteredUsers.slice(startIndex, startIndex + itemsPerPage);
-
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-lg  mb-4 gap-4">
@@ -143,5 +135,3 @@ export default function UsersPage() {
     </div>
   );
 }
-
-
