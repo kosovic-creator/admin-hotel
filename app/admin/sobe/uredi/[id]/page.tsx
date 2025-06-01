@@ -67,10 +67,10 @@ export default function AzurirajSobu() {
         throw new Error('Nema odgovora sa servera');
       }
       const data = await response.json();
-      setToast('Soba uspešno ažurirana!');
       setSobaBroj(data.sobaBroj);
       setStatus(data.status);
       setSlike([]);
+      setToast('Soba uspešno ažurirana!');
       setTimeout(() => router.push('/admin/sobe'), 2000);
     } catch (error) {
       setToast('Greška pri ažuriranju sobe.');

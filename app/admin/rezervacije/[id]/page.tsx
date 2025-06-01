@@ -53,10 +53,8 @@ export default function RezervacijaId() {
   const deleteRezervacije = async (id: number) => {
     await fetch(`/api/hotel/rezervacije/${id}`, { method: 'DELETE' });
     setRezervacija(null);
-    setTimeout(() => {
       setToast('Rezervacija je uspešno obrisana!');
-    }, 2000);
-    router.push('/admin/rezervacije');
+     setTimeout(() => { router.push('/admin/rezervacije'); }, 2000);
   };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-yellow-50 via-white to-gray-100">
