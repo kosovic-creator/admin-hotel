@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { UploadButton } from '@/lib/uploadthing';
 import Toast from '@/components/ui/Toast';
 import { sobaSchema } from "@/types/zod/sobaSchema";
-
 export default function DodajSobu() {
   const params = useParams();
   const router = useRouter();
@@ -18,7 +17,6 @@ export default function DodajSobu() {
   const [tip, setTip] = useState<string>('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [tipoviSoba, setTipoviSoba] = useState<{ id: number; ime: string }[]>([]);
-
   useEffect(() => {
     async function fetchTipoviSoba() {
       try {
@@ -27,12 +25,10 @@ export default function DodajSobu() {
         const data = await res.json();
         setTipoviSoba(data);
       } catch (e) {
-        // Možete dodati error handling po potrebi
       }
     }
     fetchTipoviSoba();
   }, []);
-
   async function novaSoba() {
     setErrors({});
     const body = {
@@ -42,7 +38,6 @@ export default function DodajSobu() {
       status: statusAktivna ? 'spremna' : 'nije  spremna',
       slike,
     };
-    console.log('Body za validaciju:', body);
     const parsed = sobaSchema.safeParse(body);
     if (!parsed.success) {
       const fieldErrors: Record<string, string> = {};
@@ -50,7 +45,6 @@ export default function DodajSobu() {
         if (err.path[0]) fieldErrors[err.path[0] as string] = err.message;
       });
       setErrors(fieldErrors);
-      console.log('Validacija nije prošla:', fieldErrors);
       return;
     }
     try {
@@ -70,7 +64,7 @@ export default function DodajSobu() {
       setStatusAktivna(true);
       setSlike([]);
       setToast('Uspješno ste dodali novu sobu.');
-      setTimeout(() => router.push('/admin/sobe'), 2000);
+      setTimeout(() => router.push('/admin/sobe'), 1500);
     } catch (error) {
       console.error('Greška u dodavanju nove sobe:', error);
     }
@@ -108,8 +102,6 @@ export default function DodajSobu() {
             className="w-full border border-gray-300 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition text-lg"
           />
           {errors.opis && <p className="text-red-500 text-sm">{errors.opis}</p>}
-
-
           <UploadButton
             endpoint="imageUploader"
             onClientUploadComplete={(res: { url: string }[]) => {
