@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Image from 'next/image';
-import { UploadButton } from '@/lib/uploadthing';
 import Toast from '@/components/ui/Toast';
 import { sobaSchema } from "@/types/zod/sobaSchema";
 export default function DodajSobu() {
@@ -102,15 +101,27 @@ export default function DodajSobu() {
             className="w-full border border-gray-300 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition text-lg"
           />
           {errors.opis && <p className="text-red-500 text-sm">{errors.opis}</p>}
-          <UploadButton
-            endpoint="imageUploader"
-            onClientUploadComplete={(res: { url: string }[]) => {
-              setSlike(res.map((file) => file.url));
-            }}
-            onUploadError={(error: Error) => {
-              alert(`Greška pri uploadu: ${error.message}`);
-            }}
-          />
+          <div>
+            <label
+              htmlFor="slike-upload"
+              className="w-full border border-gray-300 rounded-xl px-5 py-3 text-blue-600   text-lg cursor-pointer block my-2 text-center"
+            >
+              Nađi fajl
+            </label>
+            <input
+              id="slike-upload"
+              type="file"
+              accept="image/*"
+              multiple
+              style={{ display: 'none' }}
+              onChange={(e) => {
+                const files = e.target.files;
+                if (!files) return;
+                const fileUrls = Array.from(files).map((file) => URL.createObjectURL(file));
+                setSlike(fileUrls);
+              }}
+            />
+          </div>
           {errors.slike && <p className="text-red-500 text-sm">{errors.slike}</p>}
           {slike.length > 0 && (
             <div className="flex gap-4 flex-wrap my-4 justify-center">

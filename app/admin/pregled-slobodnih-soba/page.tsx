@@ -126,7 +126,7 @@ export default function PregledSlobodnihSoba() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <Link
                         className={`bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition font-semibold ${(!startDate || !endDate) ? 'opacity-50 pointer-events-none' : ''}`}
-                        href={`/admin/rezervacije/dodaj?sobaId=${soba.id}${startDate ? `&pocetak=${startDate.toISOString().split('T')[0]}` : ''}${endDate ? `&kraj=${endDate.toISOString().split('T')[0]}` : ''}`}
+                        href={`/admin/pregled-slobodnih-soba/dodaj?sobaId=${soba.id}${startDate ? `&pocetak=${startDate.toISOString().split('T')[0]}` : ''}${endDate ? `&kraj=${endDate.toISOString().split('T')[0]}` : ''}`}
                       >
                         Dodaj
                       </Link>

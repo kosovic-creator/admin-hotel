@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Image from 'next/image';
 import Toast from '@/components/ui/Toast';
-import { UploadButton } from '@/lib/uploadthing';
 import { sobaSchema } from '@/types/zod/sobaSchema';
 
 export default function AzurirajSobu() {
@@ -88,13 +87,15 @@ export default function AzurirajSobu() {
             azurirajSobu();
           }}
         >
-          <input
-            type="text"
+          <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            placeholder="Unesite naziv"
             className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
+          >
+            <option value="">Odaberite status</option>
+            <option value="spremna">Spremna</option>
+            <option value="nije spremna">Nije spremna</option>
+          </select>
           {errors.status && <p className="text-red-500 text-sm">{errors.status}</p>}
           <input
             type="number"
@@ -113,29 +114,41 @@ export default function AzurirajSobu() {
           />
           {errors.opis && <p className="text-red-500 text-sm">{errors.opis}</p>}
 
-          <UploadButton
-            endpoint="imageUploader"
-            onClientUploadComplete={(res: { url: string }[]) => {
-              setSlike(res.map((file) => file.url));
-            }}
-            onUploadError={(error: Error) => {
-              alert(`Greška pri uploadu: ${error.message}`);
-            }}
-          />
-          {errors.slike && <p className="text-red-500 text-sm">{errors.slike}</p>}
-          {slike.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-2">
-              {slike.map((url, idx) => (
-                <Image
-                  key={idx}
-                  src={url}
-                  alt={`Slika ${idx + 1}`}
-                  width={80}
-                  height={80}
-                  className="w-20 h-20 object-cover rounded"
-                />
-              ))}
-            </div>
+          <div>
+                     <label
+                       htmlFor="slike-upload"
+                       className="w-full border border-gray-300 rounded-xl px-5 py-3 text-blue-600   text-lg cursor-pointer block my-2 text-center"
+                     >
+                       Nađi fajl
+                     </label>
+                     <input
+                       id="slike-upload"
+                       type="file"
+                       accept="image/*"
+                       multiple
+                       style={{ display: 'none' }}
+                       onChange={(e) => {
+                         const files = e.target.files;
+                         if (!files) return;
+                         const fileUrls = Array.from(files).map((file) => URL.createObjectURL(file));
+                         setSlike(fileUrls);
+                       }}
+                     />
+                   </div>
+                   {errors.slike && <p className="text-red-500 text-sm">{errors.slike}</p>}
+                   {slike.length > 0 && (
+                     <div className="flex gap-4 flex-wrap my-4 justify-center">
+                       {slike.map((url, idx) => (
+                         <Image
+                           key={idx}
+                           src={url}
+                           alt={`Slika ${idx + 1}`}
+                           width={90}
+                           height={90}
+                           className="w-24 h-24 object-cover rounded-xl border border-gray-200 shadow"
+                         />
+                       ))}
+                     </div>
           )}
           <div className="flex gap-4">
             <button
