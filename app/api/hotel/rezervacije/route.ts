@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import nodemailer from 'nodemailer';
+
 const prisma = new PrismaClient();
 
 // CREATE
@@ -63,6 +65,25 @@ export async function POST(request: NextRequest) {
       ukupno: ukupno ?? 0
     },
   });
+
+  // Nakon što je rezervacija uspješna:
+ const transporter = nodemailer.createTransport({
+       service: "gmail", // ili npr. "hotmail", "zoho", itd.
+       auth: {
+         user: 'drasko.kosovic@gmail.com',
+         pass: 'civc scwo svdb leup',
+       },
+     });
+
+  await transporter.sendMail({
+    // from: '"Hotel" <hotel@example.com>',
+    // to: body.email,
+    from: 'drasko.kosovic@gmail.com',
+      to: body.email,
+    subject: 'Potvrda rezervacije',
+    text: `Poštovani ${body.ime}, vaša soba je uspješno rezervisana od ${body.pocetak} do ${body.kraj}.`,
+  });
+
   return NextResponse.json(novaRezervacija);
 }
 
