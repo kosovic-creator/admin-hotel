@@ -202,7 +202,7 @@ function DodajRezrvaciju() {
               Dodaj
             </button>
           </div>
-          {!isValidRange && (
+          {startDate && endDate && !isValidRange && (
             <p className="text-red-500 text-xs mt-1">
               Početak mora biti prije kraja!
             </p>
