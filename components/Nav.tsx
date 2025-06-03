@@ -11,11 +11,10 @@ type NavProps = {
   isSidebarOpen: boolean;
   setIsSidebarOpen: (open: boolean) => void;
 };
-
 export default function Nav({ isSidebarOpen, setIsSidebarOpen }: NavProps) {
   const { data: session } = useSession();
   const router = useRouter();
- 
+
   return (
     <div className="w-full">
       <header className="bg-gradient-to-r from-gray-500 to-gray-900 text-white shadow-lg rounded-b-xl px-6 py-4">

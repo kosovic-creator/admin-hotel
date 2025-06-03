@@ -61,8 +61,19 @@ export default function Rezervacije() {
           >
             Vrati
           </button>
+          <button
+            type="button"
+            onClick={() => {
+              router.push(`/admin/rezervacije/dodaj`);
+            }}
+            className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-700 font-medium"
+          >
+            Dodaj Rezervaciju
+          </button>
         </div>
+
       </div>
+
       <div className="overflow-x-auto rounded-lg shadow-lg bg-white w-full">
         <table className="min-w-full w-full border border-gray-200 rounded-lg">
           <thead className="bg-gray-100">

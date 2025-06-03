@@ -115,40 +115,40 @@ export default function AzurirajSobu() {
           {errors.opis && <p className="text-red-500 text-sm">{errors.opis}</p>}
 
           <div>
-                     <label
-                       htmlFor="slike-upload"
-                       className="w-full border border-gray-300 rounded-xl px-5 py-3 text-blue-600   text-lg cursor-pointer block my-2 text-center"
-                     >
-                       Nađi fajl
-                     </label>
-                     <input
-                       id="slike-upload"
-                       type="file"
-                       accept="image/*"
-                       multiple
-                       style={{ display: 'none' }}
-                       onChange={(e) => {
-                         const files = e.target.files;
-                         if (!files) return;
-                         const fileUrls = Array.from(files).map((file) => URL.createObjectURL(file));
-                         setSlike(fileUrls);
-                       }}
-                     />
-                   </div>
-                   {errors.slike && <p className="text-red-500 text-sm">{errors.slike}</p>}
-                   {slike.length > 0 && (
-                     <div className="flex gap-4 flex-wrap my-4 justify-center">
-                       {slike.map((url, idx) => (
-                         <Image
-                           key={idx}
-                           src={url}
-                           alt={`Slika ${idx + 1}`}
-                           width={90}
-                           height={90}
-                           className="w-24 h-24 object-cover rounded-xl border border-gray-200 shadow"
-                         />
-                       ))}
-                     </div>
+            <label
+              htmlFor="slike-upload"
+              className="w-full border border-gray-300 rounded-xl px-5 py-3 text-blue-600   text-lg cursor-pointer block my-2 text-center"
+            >
+              Nađi fajl
+            </label>
+            <input
+              id="slike-upload"
+              type="file"
+              accept="image/*"
+              multiple
+              style={{ display: 'none' }}
+              onChange={(e) => {
+                const files = e.target.files;
+                if (!files) return;
+                const fileUrls = Array.from(files).map((file) => URL.createObjectURL(file));
+                setSlike(fileUrls);
+              }}
+            />
+          </div>
+          {errors.slike && <p className="text-red-500 text-sm">{errors.slike}</p>}
+          {slike.length > 0 && (
+            <div className="flex gap-4 flex-wrap my-4 justify-center">
+              {slike.map((url, idx) => (
+                <Image
+                  key={idx}
+                  src={url}
+                  alt={`Slika ${idx + 1}`}
+                  width={90}
+                  height={90}
+                  className="w-24 h-24 object-cover rounded-xl border border-gray-200 shadow"
+                />
+              ))}
+            </div>
           )}
           <div className="flex gap-4">
             <button
