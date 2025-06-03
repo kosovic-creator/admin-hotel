@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image';
 import { Sobe } from '@/types/sobe';
 import Link from 'next/link';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 export default function SobeLista() {
     const [soba, setSoba] = useState<Sobe[] | null>(null);
@@ -13,13 +11,6 @@ export default function SobeLista() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     const router = useRouter();
-    const [datumi, setDatumi] = useState<{ [sobaId: number]: { startDate: string, endDate: string } }>({});
-    const [rezervacije, setRezervacije] = useState<{ [sobaId: number]: { start: string, end: string }[] }>({});
-
-    // Pretpostavimo da imaš podatke o rezervacijama za svaku sobu:
-    // const rezervacije: { [sobaId: number]: { start: string, end: string }[] } = {
-    //     // npr. 1: [{ start: "2025-06-01", end: "2025-06-05" }, ...]
-    // };
 
     useEffect(() => {
         async function učitajSobu() {
@@ -36,28 +27,6 @@ export default function SobeLista() {
         }
         učitajSobu();
     }, []);
-
-    useEffect(() => {
-        async function ucitajRezervacije() {
-            try {
-                const response = await fetch('/api/hotel/rezervacije');
-                if (!response.ok) throw new Error('Greška pri učitavanju rezervacija');
-                const data = await response.json();
-                // Pretpostavljamo da API vraća niz sa { sobaId, start, end }
-                // Pretvori u objekat po sobaId
-                const mapirano: { [sobaId: number]: { start: string, end: string }[] } = {};
-                data.forEach((rez: { sobaId: number, start: string, end: string }) => {
-                    if (!mapirano[rez.sobaId]) mapirano[rez.sobaId] = [];
-                    mapirano[rez.sobaId].push({ start: rez.start, end: rez.end });
-                });
-                setRezervacije(mapirano);
-            } catch (e) {
-                // možeš dodati error handling po potrebi
-            }
-        }
-        ucitajRezervacije();
-    }, []);
-
     if (error) {
         return <div>Error: {error.message}</div>;
     }
@@ -93,8 +62,6 @@ export default function SobeLista() {
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Cijena</th>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Status</th>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Slike</th>
-                            <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Početak</th>
-                            <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Kraj</th>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700"></th>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700"></th>
                         </tr>
@@ -128,60 +95,12 @@ export default function SobeLista() {
                                             />
                                         ))}
                                         {item.slike && item.slike.length > 3 && (
-                                            <span className="text-gray-500 self-center">+{item.slike.length - 3}</span>
+                                            <span className="text-gray-500 self-center">+{((item.slike ? item.slike.length : 0) - 3)}</span>
                                         )}
                                     </div>
                                 </td>
-                                <td className="py-2 px-4 border-b">
-                                <DatePicker
-    selected={datumi[item.id]?.startDate ? new Date(datumi[item.id].startDate) : null}
-    onChange={(date: Date | null) =>
-        setDatumi(prev => ({
-            ...prev,
-            [item.id]: {
-                ...prev[item.id],
-                startDate: date ? date.toISOString().slice(0, 10) : ''
-            }
-        }))
-    }
-    excludeDateIntervals={
-        (rezervacije[item.id] || []).map(r => ({
-            start: new Date(r.start + "T00:00:00Z"),
-            end: new Date(r.start + "T00:00:00Z")
-        }))
-    }
-    dateFormat="yyyy-MM-dd"
-    className="border rounded px-2 py-1"
-    placeholderText="Izaberi datum"
-/>
 
 
-                                </td>
-                                <td className="py-2 px-4 border-b">
-<DatePicker
-    selected={datumi[item.id]?.endDate ? new Date(datumi[item.id].endDate) : null}
-    onChange={(date: Date | null) =>
-        setDatumi(prev => ({
-            ...prev,
-            [item.id]: {
-                ...prev[item.id],
-                endDate: date ? date.toISOString().slice(0, 10) : ''
-            }
-        }))
-    }
-    // Dodaj excludeDateIntervals i ovde!
-    excludeDateIntervals={
-        (rezervacije[item.id] || []).map(r => ({
-           start: new Date(r.start + "T00:00:00Z"),
-            end: new Date(r.start + "T00:00:00Z")
-        }))
-    }
-    dateFormat="yyyy-MM-dd"
-    className="border rounded px-2 py-1"
-    placeholderText="Izaberi datum"
-/>
-
-                                </td>
                                 <td className="py-2 px-4 border-b">
                                     <button
                                         className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-lg font-medium transition cursor-pointer"
@@ -194,8 +113,8 @@ export default function SobeLista() {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <Link
-                                        className={`bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition font-semibold ${(!datumi[item.id]?.startDate || !datumi[item.id]?.endDate) ? 'opacity-50 pointer-events-none' : ''}`}
-                                        href={`/admin/pregled-slobodnih-soba/dodaj?sobaId=${item.id}${datumi[item.id]?.startDate ? `&pocetak=${datumi[item.id].startDate}` : ''}${datumi[item.id]?.endDate ? `&kraj=${datumi[item.id].endDate}` : ''}`}
+                                        className="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition font-semibold"
+                                        href={`/admin/pregled-slobodnih-soba/dodaj?sobaId=${item.id}`}
                                     >
                                         Rezervacija
                                     </Link>

@@ -15,23 +15,7 @@ type NavProps = {
 export default function Nav({ isSidebarOpen, setIsSidebarOpen }: NavProps) {
   const { data: session } = useSession();
   const router = useRouter();
-  if (session?.user?.role === "ADMIN") {
-    console.log("User role:", session.user.role);
-  } else {
-    console.log("user role nije admin");
-  }
-
-
-  // useEffect(() => {
-  //   if (status === "unauthenticated") {
-  //     router.replace("/login");
-  //     console.log("Redirecting to login page");
-  //   }
-  // }, [status, router]);
-  // if (status === "loading" || !session) {
-  //   return null;
-  // }
-  // console.log("Session data:", session.user?.role);
+ 
   return (
     <div className="w-full">
       <header className="bg-gradient-to-r from-gray-500 to-gray-900 text-white shadow-lg rounded-b-xl px-6 py-4">
