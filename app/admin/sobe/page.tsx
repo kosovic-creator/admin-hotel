@@ -3,6 +3,9 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react'
 import Image from 'next/image';
 import { Sobe } from '@/types/sobe';
+import Link from 'next/link';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function SobeLista() {
     const [soba, setSoba] = useState<Sobe[] | null>(null);
@@ -10,6 +13,12 @@ export default function SobeLista() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     const router = useRouter();
+    const [datumi, setDatumi] = useState<{ [sobaId: number]: { startDate: string, endDate: string } }>({});
+
+    // Pretpostavimo da imaš podatke o rezervacijama za svaku sobu:
+    const rezervacije: { [sobaId: number]: { start: string, end: string }[] } = {
+        // npr. 1: [{ start: "2025-06-01", end: "2025-06-05" }, ...]
+    };
 
     useEffect(() => {
         async function učitajSobu() {
@@ -62,6 +71,9 @@ export default function SobeLista() {
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Cijena</th>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Status</th>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Slike</th>
+                            <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Početak</th>
+                            <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Kraj</th>
+                            <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700"></th>
                             <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700"></th>
                         </tr>
                     </thead>
@@ -98,9 +110,54 @@ export default function SobeLista() {
                                         )}
                                     </div>
                                 </td>
-                                <td className="py-2 px-4 border-b flex gap-2">
+                                <td className="py-2 px-4 border-b">
+                                    <DatePicker
+                                        selected={datumi[item.id]?.startDate ? new Date(datumi[item.id].startDate) : null}
+                                        onChange={(date: Date | null) =>
+                                            setDatumi(prev => ({
+                                                ...prev,
+                                                [item.id]: {
+                                                    ...prev[item.id],
+                                                    startDate: date ? date.toISOString().slice(0, 10) : ''
+                                                }
+                                            }))
+                                        }
+                                        excludeDateIntervals={
+                                            (rezervacije[item.id] || []).map(r => ({
+                                                start: new Date(r.start),
+                                                end: new Date(r.end)
+                                            }))
+                                        }
+                                        dateFormat="yyyy-MM-dd"
+                                        className="border rounded px-2 py-1"
+                                        placeholderText="Izaberi datum"
+                                    />
+                                </td>
+                                <td className="py-2 px-4 border-b">
+                                    <DatePicker
+                                        selected={datumi[item.id]?.endDate ? new Date(datumi[item.id].endDate) : null}
+                                        onChange={(date: Date | null) =>
+                                            setDatumi(prev => ({
+                                                ...prev,
+                                                [item.id]: {
+                                                    ...prev[item.id],
+                                                    endDate: date ? date.toISOString().slice(0, 10) : ''
+                                                }
+                                            }))
+                                        }
+                                        excludeDateIntervals={
+                                            rezervacije[item.id]?.map(r => ({
+                                                start: new Date(r.start),
+                                                end: new Date(r.end)
+                                            })) || []
+                                        }
+                                        dateFormat="yyyy-MM-dd"
+                                        className="border rounded px-2 py-1"
+                                        placeholderText="Izaberi datum"
+                                    />
+                                </td>
+                                <td className="py-2 px-4 border-b">
                                     <button
-
                                         className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-lg font-medium transition cursor-pointer"
                                         onClick={() => {
                                             router.push(`/admin/sobe/${item.id}`);
@@ -108,6 +165,14 @@ export default function SobeLista() {
                                     >
                                         Detalji
                                     </button>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <Link
+                                        className={`bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition font-semibold ${(!datumi[item.id]?.startDate || !datumi[item.id]?.endDate) ? 'opacity-50 pointer-events-none' : ''}`}
+                                        href={`/admin/pregled-slobodnih-soba/dodaj?sobaId=${item.id}${datumi[item.id]?.startDate ? `&pocetak=${datumi[item.id].startDate}` : ''}${datumi[item.id]?.endDate ? `&kraj=${datumi[item.id].endDate}` : ''}`}
+                                    >
+                                        Dodaj
+                                    </Link>
                                 </td>
                             </tr>
                         ))}
