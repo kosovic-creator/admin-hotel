@@ -66,9 +66,9 @@ export default function Rezervacije() {
               onClick={() => {
                 router.push(`/admin/rezervacije/dodaj`);
               }}
-              className="px-8 py-2 bg-blue-600 hover:bg-blue-400 rounded-lg text-white font-medium mr-6"
+              className="px-2 py-2 bg-blue-600 hover:bg-blue-400 rounded-lg text-white font-medium mr-6"
             >
-              Dodaj Rezervaciju
+              Dodaj
             </button>
         </div>
 
