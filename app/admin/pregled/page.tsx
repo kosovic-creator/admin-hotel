@@ -113,6 +113,12 @@ export default function Pregled() {
           </tbody>
         </table>
       </div>
+      <div className="flex justify-end mt-4 mb-2">
+        <span className="text-lg font-semibold text-gray-700">
+          Ukupno za naplatu:{" "}
+          {filteredRezervacije.reduce((sum, r) => sum + (typeof r.ukupno === "number" ? r.ukupno : 0), 0)}
+        </span>
+      </div>
       <div className="flex justify-center items-center gap-2 mt-8">
         <button
           className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 text-gray-700 disabled:opacity-50"
