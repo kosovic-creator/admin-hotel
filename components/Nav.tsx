@@ -15,10 +15,10 @@ type NavProps = {
 export default function Nav({ isSidebarOpen, setIsSidebarOpen }: NavProps) {
   const { data: session } = useSession();
   const router = useRouter();
-  if (session?.user?.role === "admin") {
+  if (session?.user?.role === "ADMIN") {
     console.log("User role:", session.user.role);
   } else {
-    console.log("No user role found");
+    console.log("user role nije admin");
   }
 
 
