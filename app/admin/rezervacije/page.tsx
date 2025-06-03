@@ -61,17 +61,15 @@ export default function Rezervacije() {
           >
             Vrati
           </button>
-          <div className="flex-1 flex justify-end">
-            <button
+         <button
               type="button"
               onClick={() => {
                 router.push(`/admin/rezervacije/dodaj`);
               }}
               className="px-8 py-2 bg-blue-600 hover:bg-blue-400 rounded-lg text-white font-medium mr-6"
             >
-              Dodaj
+              Dodaj Rezervaciju
             </button>
-          </div>
         </div>
 
       </div>

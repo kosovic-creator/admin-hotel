@@ -191,7 +191,7 @@ function DodajRezrvaciju() {
             </button>
             <button
               type="submit"
-              className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition"
+              className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={
                 !selectedSobaId ||
                 !startDate ||
