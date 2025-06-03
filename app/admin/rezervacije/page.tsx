@@ -61,6 +61,8 @@ export default function Rezervacije() {
           >
             Vrati
           </button>
+        </div>
+        <div  className="mt-4 flex justify-end">
          <button
               type="button"
               onClick={() => {
@@ -68,8 +70,9 @@ export default function Rezervacije() {
               }}
               className="px-2 py-2 bg-blue-600 hover:bg-blue-400 rounded-lg text-white font-medium mr-6"
             >
-              Dodaj
+              Dodaj Rezrevaciju
             </button>
+
         </div>
 
       </div>
