@@ -59,12 +59,12 @@ const Sidebar: React.FC<SidebarProps> = ({ session, open, onClose }) => {
                     >
                         Rezerviši
                     </Link>
-                    <Link
+                    {/* <Link
                         href="/admin/rezervacije"
                         className="w-full px-4 py-2 rounded-lg hover:bg-gray-700 hover:underline transition-colors"
                     >
                         Pregled
-                    </Link>
+                    </Link> */}
                     <Link
                         href="/admin/sobe"
                         className="w-full px-4 py-2 rounded-lg hover:bg-gray-700 hover:underline transition-colors"
