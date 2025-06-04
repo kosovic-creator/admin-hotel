@@ -44,7 +44,25 @@ export default function ChartPregled() {
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([month, ukupno]) => ({ month, ukupno }));
   }
+  function getMonthlyTotalsByRoom(rezervacije: Rezervacija[]) {
+    const totals: { [month: string]: { [room: string]: number } } = {};
+    rezervacije.forEach(r => {
+      const date = new Date(r.pocetak);
+      const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      const room = r.soba?.sobaBroj || 'Nepoznata';
+      if (!totals[month]) totals[month] = {};
+      totals[month][room] = (totals[month][room] || 0) + (typeof r.ukupno === 'number' ? r.ukupno : 0);
+    });
+    // Pretvori u niz za chart
+    return Object.entries(totals)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([month, rooms]) => ({ month, ...rooms }));
+  }
   const monthlyTotals = getMonthlyTotals(filteredRezervacije);
+  const monthlyTotalsByRoom = getMonthlyTotalsByRoom(filteredRezervacije);
+  const allRooms = Array.from(
+    new Set(filteredRezervacije.map(r => r.soba?.sobaBroj || 'Nepoznata'))
+  );
 
   return (
     <div className="w-full p-4">
@@ -58,6 +76,26 @@ export default function ChartPregled() {
             <YAxis />
             <Tooltip />
             <Bar dataKey="ukupno" fill="#2563eb" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold mb-2">Ukupno naplaćeno po mesecima i sobama</h2>
+        <ResponsiveContainer width="100%" height={350}>
+          <BarChart data={monthlyTotalsByRoom}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            {allRooms.map(room => (
+              <Bar
+                key={room}
+                dataKey={room}
+                stackId="a"
+                fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+                name={`Soba ${room}`}
+              />
+            ))}
           </BarChart>
         </ResponsiveContainer>
       </div>
