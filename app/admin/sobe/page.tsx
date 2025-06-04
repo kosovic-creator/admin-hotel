@@ -114,9 +114,9 @@ export default function SobeLista() {
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <Link
                                         className="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition font-semibold"
-                                        href={`/admin/pregled-slobodnih-soba/dodaj?sobaId=${item.id}`}
+                                        href={`/admin/sobe/dodaj-rezervaciju/${item.id}`}
                                     >
-                                        Rezervacija
+                                        Rezervacija Po sobi
                                     </Link>
                                 </td>
                             </tr>
