@@ -66,8 +66,8 @@ export default function PregledSlobodnihSoba() {
   );
   return (
     <>
-    <div className={`transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
-        <div className="max-w-6xl mx-auto p-6 bg-white rounded-xl shadow-lg mt-8">
+    <div className={`transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'} pt-24`}>
+        <div className="max-w-6xl mx-auto p-6 bg-white rounded-xl shadow-lg mt-8 ">
           <h1 className="text-3xl font-bold mb-8 text-center text-gray-800 tracking-tight">Pregled slobodnih soba</h1>
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-8 bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-md">
             <DatePicker

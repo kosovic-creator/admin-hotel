@@ -32,12 +32,12 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
         <GlobalProvider>
           <SessionClientProvider>
              <Toast message={toast} />
             <Nav isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
-          <div className={`transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
+          <div className={`transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'} overflow-scroll`}>
             {children}
             </div>
           </SessionClientProvider>
