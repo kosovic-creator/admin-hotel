@@ -39,8 +39,15 @@ export default function UsersPage() {
   const currentUsers = filteredUsers.slice(startIndex, startIndex + itemsPerPage);
   return (
     <div>
-      <div className="flex flex-col md:flex-row justify-between items-center bg-white pt-20 rounded-lg  mb-4 gap-4 mt-6 ">
-        <div className="relative w-full md:w-72">
+      <div
+        className="flex flex-col md:flex-row justify-between items-center bg-white pt-20 rounded-lg mb-4 gap-4 mt-6 z-10"
+        style={{
+          position: 'sticky',
+          top: 0,
+          background: 'white',
+        }}
+      >
+        <div className="w-full mt-12 p-8 bg-white rounded-2xl shadow-2xl pt-20">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3">
             <Search className="w-5 h-5 text-gray-400" />
           </span>
@@ -58,7 +65,7 @@ export default function UsersPage() {
           </button>
         </Link>
       </div>
-      <table className=" bg-white rounded-lg shadow-lg w-full">
+      <table className="min-w-full w-full bg-white">
         <thead className="bg-gray-300 text-black rounded-t-lg">
           <tr>
             <th className="p-4 text-center font-semibold rounded-tl-lg whitespace-nowrap">Email</th>
