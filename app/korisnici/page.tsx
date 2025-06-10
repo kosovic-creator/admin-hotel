@@ -53,7 +53,7 @@ export default function UsersPage() {
           />
         </div>
         <Link href="/korisnici/add" className="w-full md:w-auto">
-          <button className="w-full md:w-auto px-4 py-2 rounded-md bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition-transform hover:scale-105 cursor-pointer">
+          <button className="w-full md:w-auto px-4 py-2 rounded-md bg-blue-600 text-white font-semibold shadow hover:bg-green-700 transition-transform hover:scale-105 cursor-pointer">
             Dodaj korisnika
           </button>
         </Link>
@@ -87,7 +87,7 @@ export default function UsersPage() {
                 <td className="p-4 text-center">{user.role}</td>
                 <td className="p-4 text-center">
                   <button
-                    className="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-800 transition-transform hover:scale-105 text-sm font-medium cursor-pointer"
+                    className="px-3 py-1 rounded bg-green-600 text-white hover:bg-blue-800 transition-transform hover:scale-105 text-sm font-medium cursor-pointer"
                     onClick={() => {
                       router.push(`/korisnici/${user.id}`);
                     }}
