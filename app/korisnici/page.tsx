@@ -39,7 +39,7 @@ export default function UsersPage() {
   const currentUsers = filteredUsers.slice(startIndex, startIndex + itemsPerPage);
   return (
     <div>
-      <div className="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-lg  mb-4 gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-center bg-white pt-20 rounded-lg  mb-4 gap-4 mt-6 ">
         <div className="relative w-full md:w-72">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3">
             <Search className="w-5 h-5 text-gray-400" />
@@ -52,8 +52,8 @@ export default function UsersPage() {
             onChange={(e) => setFilter(e.target.value)}
           />
         </div>
-        <Link href="/user/users/add" className="w-full md:w-auto">
-          <button className="w-full md:w-auto px-4 py-2 rounded-md bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition-transform hover:scale-105">
+        <Link href="/korisnici/add" className="w-full md:w-auto">
+          <button className="w-full md:w-auto px-4 py-2 rounded-md bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition-transform hover:scale-105 cursor-pointer">
             Dodaj korisnika
           </button>
         </Link>
@@ -87,7 +87,7 @@ export default function UsersPage() {
                 <td className="p-4 text-center">{user.role}</td>
                 <td className="p-4 text-center">
                   <button
-                    className="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-800 transition-transform hover:scale-105 text-sm font-medium"
+                    className="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-800 transition-transform hover:scale-105 text-sm font-medium cursor-pointer"
                     onClick={() => {
                       router.push(`/korisnici/${user.id}`);
                     }}

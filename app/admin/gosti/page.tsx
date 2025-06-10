@@ -39,7 +39,7 @@ export default function GostiLista() {
     const trenutniGost = filtriraniGosti.slice(startIdx, startIdx + itemsPerPage);
 
     return (
-        <div className="max-w-3xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-2xl pt-24">
+        <div className="max-w-3xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-2xl pt-20">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                 <div className="mb-4 w-80 relative">
                     <input

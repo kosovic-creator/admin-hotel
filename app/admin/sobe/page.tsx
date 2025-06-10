@@ -36,7 +36,7 @@ export default function SobeLista() {
     const trenutnaSoba = (soba ?? []).slice(startIdx, startIdx + itemsPerPage);
 
     return (
-        <div className="w-full mt-12 p-8 bg-white rounded-2xl shadow-2xl">
+        <div className="w-full mt-12 p-8 bg-white rounded-2xl shadow-2xl pt-20">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                 <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Lista soba</h1>
                 <div className="flex gap-3 w-full sm:w-auto">
@@ -99,8 +99,6 @@ export default function SobeLista() {
                                         )}
                                     </div>
                                 </td>
-
-
                                 <td className="py-2 px-4 border-b">
                                     <button
                                         className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-lg font-medium transition cursor-pointer"

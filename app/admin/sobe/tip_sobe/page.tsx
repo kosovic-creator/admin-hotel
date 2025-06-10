@@ -35,7 +35,7 @@ export default function TipSobeLista() {
     const trenutniTipSobe = (tipSobe ?? []).slice(startIdx, startIdx + itemsPerPage);
 
     return (
-        <div className="max-w-3xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-2xl">
+        <div className="max-w-3xl mx-auto mt-12 pt-20 bg-white rounded-2xl shadow-2xl">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                 <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Tipovi soba</h1>
                 <div className="flex gap-3 w-full sm:w-auto">

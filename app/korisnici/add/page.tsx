@@ -61,7 +61,7 @@ export default function AddTodoForm() {
         setEmail('');
         setPassword('');
         setRole('');
-        setTimeout(() => router.push('/user/users'), 1000);
+        setTimeout(() => router.push('/korisnici'), 1000);
       } else {
         const errorData = await response.json();
         setError(errorData.message || 'Greška u dodavanju korisnika.');
@@ -135,16 +135,16 @@ export default function AddTodoForm() {
         <div className="flex gap-4">
           <button
             type="button"
-            className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition"
+            className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition cursor-pointer"
             onClick={() => {
-              router.push(`/user/users`);
+              router.push(`/korisnici`);
             }}
           >
             Odloži
           </button>
           <button
             type="submit"
-            className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-blue-700 transition"
+            className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-neutral-700 transition cursor-pointer"
           >
             Dodaj Korisnika
           </button>
