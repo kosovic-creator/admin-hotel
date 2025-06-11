@@ -37,108 +37,212 @@ export default function UsersPage() {
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentUsers = filteredUsers.slice(startIndex, startIndex + itemsPerPage);
+  //   return (
+  //     <div className="max-w-3xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-2xl pt-20">
+  //       <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+  //         <div className="mb-4 w-80 relative">
+  //           <input
+  //             type="text"
+  //             value={filter}
+  //             onChange={e => {
+  //               setFilter(e.target.value);
+  //               setCurrentPage(1); // reset to first page on search
+  //             }}
+  //             placeholder="Pretraži po emailu..."
+  //             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
+  //           />
+  //           {filter && (
+  //             <button
+  //               type="button"
+  //               onClick={() => {
+  //                 setFilter('');
+  //                 setCurrentPage(1);
+  //               }}
+  //               className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700"
+  //               tabIndex={-1}
+  //               aria-label="Resetuj pretragu"
+  //             >
+  //               &#10005;
+  //             </button>
+  //           )}
+  //         </div>
+  //         <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Lista korisnika</h1>
+  //         <div className="flex gap-3 w-full sm:w-auto">
+  //           <button
+  //             className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition cursor-pointer"
+  //             onClick={() => {
+  //               router.push(`/korisnici/add`);
+  //             }}
+  //           >
+  //             Dodaj
+  //           </button>
+  //         </div>
+  //       </div>
+  //       <div className="overflow-x-auto rounded-lg shadow">
+  //         <table className="min-w-full bg-white">
+  //           <thead>
+  //             <tr>
+  //               <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">ID</th>
+  //               <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Email</th>
+  //               <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Rola</th>
+  //               <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700"></th>
+  //             </tr>
+  //           </thead>
+  //           <tbody>
+  //             {currentUsers.map((user, idx) => (
+  //               <tr key={user.id ?? `user-${idx}`} className="hover:bg-gray-50 transition">
+  //                 <td className="py-2 px-4 border-b">{user.id}</td>
+  //                 <td className="py-2 px-4 border-b">{user.email}</td>
+  //                 <td className="py-2 px-4 border-b">{user.role}</td>
+  //                 <td className="py-2 px-4 border-b flex gap-2">
+  //                   <button
+  //                     className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-lg font-medium transition cursor-pointer"
+  //                     onClick={() => {
+  //                       router.push(`/korisnici/${user.id}`);
+  //                     }}
+  //                   >
+  //                     Detalji
+  //                   </button>
+  //                 </td>
+  //               </tr>
+  //             ))}
+  //           </tbody>
+  //         </table>
+  //       </div>
+  //       <div className="flex flex-wrap justify-center items-center gap-2 mt-8">
+  //         <button
+  //           className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 font-semibold"
+  //           onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+  //           disabled={currentPage === 1}
+  //         >
+  //           Prethodna
+  //         </button>
+  //         {[...Array(totalPages)].map((_, idx) => (
+  //           <button
+  //             key={idx}
+  //             className={`px-4 py-2 rounded font-semibold ${currentPage === idx + 1
+  //               ? 'bg-blue-600 text-white'
+  //               : 'bg-gray-200 hover:bg-gray-300'}`}
+  //             onClick={() => setCurrentPage(idx + 1)}
+  //           >
+  //             {idx + 1}
+  //           </button>
+  //         ))}
+  //         <button
+  //           className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 font-semibold"
+  //           onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+  //           disabled={currentPage === totalPages}
+  //         >
+  //           Sledeća
+  //         </button>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
   return (
-    <div>
-      <div
-        className="flex flex-col md:flex-row justify-between items-center bg-white pt-20 rounded-lg mb-4 gap-4 mt-6 z-10"
-        style={{
-          position: 'sticky',
-          top: 0,
-          background: 'white',
-        }}
-      >
-        <div className="w-full mt-12 p-8 bg-white rounded-2xl shadow-2xl pt-20">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-            <Search className="w-5 h-5 text-gray-400" />
-          </span>
-          <Input
-            type="search"
-            placeholder="Pretraga korisnika..."
-            className="pl-10 w-full h-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+    <div className="max-w-3xl mx-auto mt-12 p-8 bg-white rounded-2xl shadow-2xl pt-20">
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+        <div className="mb-4 w-80 relative">
+          <input
+            type="text"
             value={filter}
-            onChange={(e) => setFilter(e.target.value)}
+            onChange={e => {
+              setFilter(e.target.value);
+              setCurrentPage(1); // reset to first page on search
+            }}
+            placeholder="Pretraži po emailu..."
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
           />
+          {filter && (
+            <button
+              type="button"
+              onClick={() => {
+                setFilter('');
+                setCurrentPage(1);
+              }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700"
+              tabIndex={-1}
+              aria-label="Resetuj pretragu"
+            >
+              &#10005;
+            </button>
+          )}
         </div>
-        <Link href="/korisnici/add" className="w-full md:w-auto">
-          <button className="w-full md:w-auto px-4 py-2 rounded-md bg-blue-600 text-white font-semibold shadow hover:bg-green-700 transition-transform hover:scale-105 cursor-pointer">
-            Dodaj korisnika
+        <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Lista gostiju</h1>
+        <div className="flex gap-3 w-full sm:w-auto">
+          <button
+            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow transition cursor-pointer"
+            onClick={() => {
+              router.push(`/korisnici/add`);
+            }}
+          >
+            Dodaj
           </button>
-        </Link>
+        </div>
       </div>
-      <table className="min-w-full w-full bg-white">
-        <thead className="bg-gray-300 text-black rounded-t-lg">
-          <tr>
-            <th className="p-4 text-center font-semibold rounded-tl-lg whitespace-nowrap">Email</th>
-            <th className="p-4 text-center font-semibold whitespace-nowrap">Password</th>
-            <th className="p-4 text-center font-semibold whitespace-nowrap">Rola</th>
-            <th className="p-4 text-center font-semibold rounded-tr-lg whitespace-nowrap">Detalji</th>
-          </tr>
-        </thead>
-        <tbody className="text-gray-700 divide-y divide-gray-200">
-          {currentUsers.length === 0 ? (
+      <div className="overflow-x-auto rounded-lg shadow">
+        <table className="min-w-full bg-white">
+          <thead>
             <tr>
-              <td colSpan={4} className="text-center py-8">
-                <LoadingDots />
+              <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">ID</th>
+              <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Email</th>
+              <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700">Rola</th>
+              <th className="py-3 px-4 border-b bg-gray-100 text-left font-semibold text-gray-700"></th>
+            </tr>
+          </thead>
+          <tbody>
+          {currentUsers.map((user, idx) => (
+            <tr key={user.id ?? `user-${idx}`} className="hover:bg-gray-50 transition">
+              <td className="py-2 px-4 border-b">{user.id}</td>
+              <td className="py-2 px-4 border-b">{user.email}</td>
+              <td className="py-2 px-4 border-b">{user.role}</td>
+              <td className="py-2 px-4 border-b flex gap-2">
+                <button
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-lg font-medium transition cursor-pointer"
+                  onClick={() => {
+                    router.push(`/korisnici/${user.id}`);
+                  }}
+                >
+                  Detalji
+                </button>
               </td>
             </tr>
-          ) : (
-            currentUsers.map((user, idx) => (
-              <tr
-                key={user.id}
-                className={`transition ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-blue-50`}
-              >
-                <td className="p-4 text-center">{user.email}</td>
-                <td className="p-4 text-center break-all max-w-xs">
-                  {user.password.length > 20 ? user.password.slice(0, 20) + '...' : user.password}
-                </td>
-                <td className="p-4 text-center">{user.role}</td>
-                <td className="p-4 text-center">
-                  <button
-                    className="px-3 py-1 rounded bg-green-600 text-white hover:bg-blue-800 transition-transform hover:scale-105 text-sm font-medium cursor-pointer"
-                    onClick={() => {
-                      router.push(`/korisnici/${user.id}`);
-                    }}
-                  >
-                    Detalji
-                  </button>
-                </td>
-              </tr>
-            ))
-          )}
+          ))}
         </tbody>
-      </table>
-      {/* Pagination controls */}
+        </table>
+      </div>
       <div className="flex flex-wrap justify-center items-center gap-2 mt-8">
-                <button
-                    className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 font-semibold"
-                    onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                    disabled={currentPage === 1}
-                >
-                    Prethodna
-                </button>
-                {[...Array(totalPages)].map((_, idx) => (
-                    <button
-                        key={idx}
-                        className={`px-4 py-2 rounded font-semibold ${currentPage === idx + 1
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-gray-200 hover:bg-gray-300'
-                            }`}
-                        onClick={() => setCurrentPage(idx + 1)}
-                    >
-                        {idx + 1}
-                    </button>
-                ))}
-                <button
-                    className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 font-semibold"
-                    onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                >
-                    Sledeća
-                </button>
-            </div>
-      <footer className="flex justify-center items-center p-4 bg-gray-50 mt-10 rounded-b-lg shadow">
-        {/* Footer sadržaj po potrebi */}
-      </footer>
+        <button
+          className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 font-semibold"
+          onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Prethodna
+        </button>
+        {[...Array(totalPages)].map((_, idx) => (
+          <button
+            key={idx}
+            className={`px-4 py-2 rounded font-semibold ${currentPage === idx + 1
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-200 hover:bg-gray-300'
+              }`}
+            onClick={() => setCurrentPage(idx + 1)}
+          >
+            {idx + 1}
+          </button>
+        ))}
+        <button
+          className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 font-semibold"
+          onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Sledeća
+        </button>
+      </div>
     </div>
-  );
+  )
 }
+
+
+
