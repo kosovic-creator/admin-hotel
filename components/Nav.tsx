@@ -48,7 +48,7 @@ export default function Nav({ isSidebarOpen, setIsSidebarOpen }: NavProps) {
                   }`}
               >
                 <Link href="/admin/pregled">Pregled</Link>
-                <Link href="/admin/chart">Izvještaji</Link>
+                <Link href="/admin/chart">Grafički Prikaz</Link>
               </div>
             </div>
             {/* Desna strana */}
