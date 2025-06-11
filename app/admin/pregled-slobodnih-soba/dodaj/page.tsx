@@ -125,20 +125,6 @@ function DodajRezrvaciju() {
             />
             {errors.kraj && <p className="text-red-500 text-xs mt-1">{errors.kraj}</p>}
           </div>
-
-          {/* <Select value={status} onValueChange={setStatus}>
-            <SelectTrigger
-              id="role"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-lg"
-            >
-              {status ? status : "Odaberite status rezervacije"}
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="rezervisano">Rezrevisano</SelectItem>
-              <SelectItem value="zauzeto">Zauzeto</SelectItem>
-            </SelectContent>
-          </Select>
-          {errors.status && <p className="text-red-500 text-xs mt-1">{errors.status}</p>} */}
           <div>
             <input
               type="text"
@@ -162,7 +148,7 @@ function DodajRezrvaciju() {
           <div className="flex gap-4">
             <button
               type="button"
-              className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition"
+              className="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded font-medium transition cursor-pointer"
               onClick={() => {
                 router.push(`/admin/rezervacije`);
               }}
@@ -171,7 +157,8 @@ function DodajRezrvaciju() {
             </button>
             <button
               type="submit"
-              className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition"
+
+              className="flex-1 bg-black text-white font-semibold py-2 rounded hover:bg-gray-700 transition cursor-pointer "
             >
               Dodaj
             </button>
